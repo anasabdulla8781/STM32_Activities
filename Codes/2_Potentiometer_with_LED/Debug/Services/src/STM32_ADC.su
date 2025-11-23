@@ -1,0 +1,7 @@
+../Services/src/STM32_ADC.c:12:6:adc_init_common	16	static
+../Services/src/STM32_ADC.c:21:6:adc_init_internal_channels	24	static,ignoring_inline_asm
+../Services/src/STM32_ADC.c:37:6:adc_init_individual_modules	16	static
+../Services/src/STM32_ADC.c:62:6:adc_set_sequnce	16	static
+../Services/src/STM32_ADC.c:84:6:adc_start_conversion	16	static,ignoring_inline_asm
+../Services/src/STM32_ADC.c:90:6:adc_get_value	16	static
+../Services/src/STM32_ADC.c:95:6:adc_convert_value	24	static

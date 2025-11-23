@@ -1,0 +1,4 @@
+../Services/src/STM32_ADC.c:12:6:adc_init_common	24	static,ignoring_inline_asm
+../Services/src/STM32_ADC.c:28:6:adc1_init	4	static,ignoring_inline_asm
+../Services/src/STM32_ADC.c:47:6:get_adc_value	16	static
+../Services/src/STM32_ADC.c:53:6:adc_convert_value	24	static
