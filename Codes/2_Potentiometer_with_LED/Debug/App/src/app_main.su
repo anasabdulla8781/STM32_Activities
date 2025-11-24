@@ -1,3 +1,0 @@
-../App/src/app_main.c:31:6:service_init	8	static
-../App/src/app_main.c:42:6:app_init	4	static
-../App/src/app_main.c:48:5:main	8	static
