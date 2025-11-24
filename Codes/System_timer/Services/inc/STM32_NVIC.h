@@ -54,6 +54,10 @@ typedef struct
 
 void nvic_init(uint8_t interrupt_number);
 
+/// Global variables
 
+extern volatile uint16_t system_timer_1ms;
+extern volatile uint16_t counter_for_system_timer;
+extern volatile uint16_t system_timer_1s;
 
 #endif /* INC_STM32_NVIC_H_ */

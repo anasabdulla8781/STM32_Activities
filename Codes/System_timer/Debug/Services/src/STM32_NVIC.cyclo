@@ -1,3 +1,4 @@
-../Services/src/STM32_NVIC.c:20:6:nvic_init	3
-../Services/src/STM32_NVIC.c:38:6:TIM2_IRQHandler	5
-../Services/src/STM32_NVIC.c:69:6:TIM4_IRQHandler	2
+../Services/src/STM32_NVIC.c:26:6:nvic_init	3
+../Services/src/STM32_NVIC.c:44:6:TIM2_IRQHandler	5
+../Services/src/STM32_NVIC.c:75:6:TIM4_IRQHandler	2
+../Services/src/STM32_NVIC.c:85:6:SysTick_Handler	2

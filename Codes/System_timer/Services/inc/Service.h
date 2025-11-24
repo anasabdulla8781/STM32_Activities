@@ -14,5 +14,6 @@
 #include <STM32_NVIC.h>
 #include <STM32_RCC.h>
 #include <STM32_ADC.h>
+#include <M4_SysTick.h>
 
 #endif /* INC_SERVICE_H_ */

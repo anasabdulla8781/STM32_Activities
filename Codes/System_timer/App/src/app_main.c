@@ -31,6 +31,7 @@ float converted_value = 0.0;
 void service_init()
 {
 	rcc_init();
+	systick_init();
 	pin_init(0,PIN_ANALOG_INPUT,PORTA);
 	adc_init_common(ADC_INDEPENDENT_MODE);
 	adc_init_individual_modules(adc1_ptr,0);

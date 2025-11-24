@@ -16,6 +16,12 @@ uint8_t four_s_delay;
 uint8_t eight_s_delay;
 uint8_t twelve_s_delay;
 
+/// ********************** System Timer - Global variables ********************* ///
+volatile uint16_t system_timer_1ms = 0;
+volatile uint16_t	counter_for_system_timer = 0;
+volatile uint16_t system_timer_1s = 0;
+
+/// ********************** Interrupts definitions ****************************** ///
 
 void nvic_init(uint8_t interrupt_number)
 {
@@ -73,5 +79,16 @@ void TIM4_IRQHandler(void)
 		gpt4_ptr->TIMx_SR &= ~(1U << 0);
 
 		fade_led_program();
+	}
+}
+
+void SysTick_Handler(void)
+{
+	system_timer_1ms++;
+	counter_for_system_timer++;
+	if(counter_for_system_timer == 1000)
+	{
+		counter_for_system_timer = 0;
+		system_timer_1s++;
 	}
 }

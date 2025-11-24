@@ -5,6 +5,7 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../Services/src/M4_SysTick.c \
 ../Services/src/STM32_ADC.c \
 ../Services/src/STM32_GPIO.c \
 ../Services/src/STM32_GPT.c \
@@ -12,6 +13,7 @@ C_SRCS += \
 ../Services/src/STM32_RCC.c 
 
 OBJS += \
+./Services/src/M4_SysTick.o \
 ./Services/src/STM32_ADC.o \
 ./Services/src/STM32_GPIO.o \
 ./Services/src/STM32_GPT.o \
@@ -19,6 +21,7 @@ OBJS += \
 ./Services/src/STM32_RCC.o 
 
 C_DEPS += \
+./Services/src/M4_SysTick.d \
 ./Services/src/STM32_ADC.d \
 ./Services/src/STM32_GPIO.d \
 ./Services/src/STM32_GPT.d \
@@ -33,7 +36,7 @@ Services/src/%.o Services/src/%.su Services/src/%.cyclo: ../Services/src/%.c Ser
 clean: clean-Services-2f-src
 
 clean-Services-2f-src:
-	-$(RM) ./Services/src/STM32_ADC.cyclo ./Services/src/STM32_ADC.d ./Services/src/STM32_ADC.o ./Services/src/STM32_ADC.su ./Services/src/STM32_GPIO.cyclo ./Services/src/STM32_GPIO.d ./Services/src/STM32_GPIO.o ./Services/src/STM32_GPIO.su ./Services/src/STM32_GPT.cyclo ./Services/src/STM32_GPT.d ./Services/src/STM32_GPT.o ./Services/src/STM32_GPT.su ./Services/src/STM32_NVIC.cyclo ./Services/src/STM32_NVIC.d ./Services/src/STM32_NVIC.o ./Services/src/STM32_NVIC.su ./Services/src/STM32_RCC.cyclo ./Services/src/STM32_RCC.d ./Services/src/STM32_RCC.o ./Services/src/STM32_RCC.su
+	-$(RM) ./Services/src/M4_SysTick.cyclo ./Services/src/M4_SysTick.d ./Services/src/M4_SysTick.o ./Services/src/M4_SysTick.su ./Services/src/STM32_ADC.cyclo ./Services/src/STM32_ADC.d ./Services/src/STM32_ADC.o ./Services/src/STM32_ADC.su ./Services/src/STM32_GPIO.cyclo ./Services/src/STM32_GPIO.d ./Services/src/STM32_GPIO.o ./Services/src/STM32_GPIO.su ./Services/src/STM32_GPT.cyclo ./Services/src/STM32_GPT.d ./Services/src/STM32_GPT.o ./Services/src/STM32_GPT.su ./Services/src/STM32_NVIC.cyclo ./Services/src/STM32_NVIC.d ./Services/src/STM32_NVIC.o ./Services/src/STM32_NVIC.su ./Services/src/STM32_RCC.cyclo ./Services/src/STM32_RCC.d ./Services/src/STM32_RCC.o ./Services/src/STM32_RCC.su
 
 .PHONY: clean-Services-2f-src
 
