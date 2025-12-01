@@ -39,11 +39,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  17 .debug_macro  000015b8  00000000  00000000  000047c2  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_line   000021d0  00000000  00000000  00005d7a  2**0
+ 18 .debug_line   000021d1  00000000  00000000  00005d7a  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    00004a65  00000000  00000000  00007f4a  2**0
+ 19 .debug_str    00004a65  00000000  00000000  00007f4b  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .comment      00000043  00000000  00000000  0000c9af  2**0
+ 20 .comment      00000043  00000000  00000000  0000c9b0  2**0
                   CONTENTS, READONLY
  21 .debug_frame  00000430  00000000  00000000  0000c9f4  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
@@ -1281,14 +1281,14 @@ void adc_get_value(ADC_structure * adc_ptr , volatile uint16_t* adc_measured_val
  8000d62:	af00      	add	r7, sp, #0
  8000d64:	6078      	str	r0, [r7, #4]
  8000d66:	6039      	str	r1, [r7, #0]
-	while (!(adc_ptr->SR & (0x01<<1)));									/// holding till the converions is getting completed
+	while (!(adc_ptr->SR & (0x01<<1)));											/// holding till the converions is getting completed
  8000d68:	bf00      	nop
  8000d6a:	687b      	ldr	r3, [r7, #4]
  8000d6c:	681b      	ldr	r3, [r3, #0]
  8000d6e:	f003 0302 	and.w	r3, r3, #2
  8000d72:	2b00      	cmp	r3, #0
  8000d74:	d0f9      	beq.n	8000d6a <adc_get_value+0xc>
-	*adc_measured_value = adc_ptr->DR;									/// storing the converted value into the variable
+	*adc_measured_value = adc_ptr->DR;											/// storing the converted value into the variable
  8000d76:	687b      	ldr	r3, [r7, #4]
  8000d78:	6cdb      	ldr	r3, [r3, #76]	@ 0x4c
  8000d7a:	b29a      	uxth	r2, r3
@@ -1317,7 +1317,7 @@ void adc_convert_value(volatile uint16_t adc_measured_value, float* converted_va
 	float v_sense = 0.0;
  8000da0:	f04f 0300 	mov.w	r3, #0
  8000da4:	60fb      	str	r3, [r7, #12]
-	v_sense = (adc_measured_value / ADC_MAX_VALUE) * MAX_VOLTAGE;		/// Curresponding voltage value from the sensor
+	v_sense = (adc_measured_value / ADC_MAX_VALUE) * MAX_VOLTAGE;				/// Curresponding voltage value from the sensor
  8000da6:	88fb      	ldrh	r3, [r7, #6]
  8000da8:	b29b      	uxth	r3, r3
  8000daa:	4618      	mov	r0, r3

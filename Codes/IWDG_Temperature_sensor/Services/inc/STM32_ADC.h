@@ -66,6 +66,13 @@ typedef struct
 
 
 /// Macros
+
+	// Modes
+#define EXTERNAL_CHANNEL	0
+#define INTERNAL_CHANNEL_TEMPERATURE_SENSOR	1
+#define INTERNAL_CHANNEL_VBAT	2
+
+
 #define ADC_INDEPENDENT_MODE	0
 #define ADC_MAX_VALUE	4095.00
 #define MAX_VOLTAGE		3.3
@@ -78,13 +85,11 @@ typedef struct
 
 
 /// Global function declarations
-extern void adc_init_common(uint8_t mode);
-extern void adc_init_internal_channels(uint8_t internal_channel);
-extern void adc_init_individual_modules(ADC_structure * adc_ptr , uint8_t channel);
-extern void adc_set_sequnce (ADC_structure * adc_ptr , uint8_t channel , uint8_t order);
-extern void adc_start_conversion(ADC_structure * adc_ptr);
-extern void adc_get_value(ADC_structure * adc_ptr , volatile uint16_t* adc_measured_value);
-extern void adc_convert_value(volatile uint16_t adc_measured_value, float* converted_value ,uint8_t mode);
+void adc_init_common(uint8_t mode);
+void adc_convert_value(volatile uint16_t adc_measured_value, float* converted_value ,uint8_t mode);
+void adc_get_value(ADC_structure * adc_ptr , volatile uint16_t* adc_measured_value);
+void adc_start_conversion(ADC_structure* adc_ptr);
+void adc_init_module(ADC_structure * adc_ptr , uint8_t channel, uint8_t mode , uint8_t conversion_behaviour , uint8_t converion_order);
 
 /// Global variable declarions
 

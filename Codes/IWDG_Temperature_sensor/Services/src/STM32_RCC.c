@@ -14,9 +14,29 @@ void rcc_init (void)
 	rcc_ptr->AHB1ENR |= SET_GPTIO_CLOCK_ENABLE;					/// enabled the clock for GPIOs
 //	rcc_ptr->APB1ENR |= SET_TIM2_CLOCK_ENABLE;					/// enabled the clock of TIMER2
 //	rcc_ptr->APB1ENR |= SET_TIM4_CLOCK_ENABLE;					/// Enabled the clock of TIMER4
-	rcc_ptr->APB2ENR |= (1 << 8);   							/// Enabled ADC1 clock
-	rcc_ptr->APB2ENR |= (1 << 9);   							/// Enabled ADC2 clock
-	rcc_ptr->APB2ENR |= (1 << 10);  							/// Enabled ADC3 clock
+
+
 
 }
 
+
+void adc_clock_enable(ADC_STRUCTURE* adc_ptr)
+{
+
+	if (adc_ptr == adc1_ptr)
+	{
+		rcc_ptr->APB2ENR |= (1 << 8);   							/// Enabled ADC1 clock
+	}
+	else if (adc_ptr == adc2_ptr)
+	{
+		rcc_ptr->APB2ENR |= (1 << 9);   							/// Enabled ADC2 clock
+	}
+	else if (adc_ptr == adc3_ptr)
+	{
+		rcc_ptr->APB2ENR |= (1 << 10);  							/// Enabled ADC3 clock
+	}
+	else
+	{
+		;
+	}
+}

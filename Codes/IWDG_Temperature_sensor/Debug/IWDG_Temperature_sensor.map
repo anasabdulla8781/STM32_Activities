@@ -1174,14 +1174,14 @@ LOAD C:/ST/STM32CubeIDE_1.19.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_macro   0x0000151e       0x72 ./Services/src/STM32_RCC.o
  .debug_macro   0x00001590       0x28 ./Services/src/STM32_RCC.o
 
-.debug_line     0x00000000     0x21d0
+.debug_line     0x00000000     0x21d1
  .debug_line    0x00000000      0x564 ./App/src/APP_feature.o
  .debug_line    0x00000564      0x555 ./App/src/app_main.o
- .debug_line    0x00000ab9      0x669 ./Services/src/STM32_ADC.o
- .debug_line    0x00001122      0x620 ./Services/src/STM32_GPIO.o
- .debug_line    0x00001742      0x58d ./Services/src/STM32_NVIC.o
- .debug_line    0x00001ccf      0x486 ./Services/src/STM32_RCC.o
- .debug_line    0x00002155       0x7b ./Startup/startup_stm32f407vgtx.o
+ .debug_line    0x00000ab9      0x66a ./Services/src/STM32_ADC.o
+ .debug_line    0x00001123      0x620 ./Services/src/STM32_GPIO.o
+ .debug_line    0x00001743      0x58d ./Services/src/STM32_NVIC.o
+ .debug_line    0x00001cd0      0x486 ./Services/src/STM32_RCC.o
+ .debug_line    0x00002156       0x7b ./Startup/startup_stm32f407vgtx.o
 
 .debug_str      0x00000000     0x4a65
  .debug_str     0x00000000     0x4a65 ./App/src/APP_feature.o
