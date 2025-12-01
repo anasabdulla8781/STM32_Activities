@@ -9,6 +9,7 @@
 #define INC_STM32_GPIO_H_
 
 #include <stdint.h>
+#include <STM32_RCC.h>
 
 /// GPIO Structure
 

@@ -14,5 +14,7 @@
 #include <STM32_NVIC.h>
 #include <STM32_RCC.h>
 #include <STM32_ADC.h>
+#include <STM32_IWDG.h>
+#include <STM32_DBGMCU.h>
 
 #endif /* INC_SERVICE_H_ */

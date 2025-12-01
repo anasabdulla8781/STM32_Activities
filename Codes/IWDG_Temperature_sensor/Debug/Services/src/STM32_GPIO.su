@@ -1,3 +1,3 @@
 ../Services/src/STM32_GPIO.c:12:6:pin_init	16	static
-../Services/src/STM32_GPIO.c:59:6:pin_operations	16	static
-../Services/src/STM32_GPIO.c:75:6:set_alternate_function_portD	16	static
+../Services/src/STM32_GPIO.c:60:6:pin_operations	16	static
+../Services/src/STM32_GPIO.c:76:6:set_alternate_function_portD	16	static

@@ -13,6 +13,7 @@
 
 void timer2_init(void)
 {
+	rcc_ptr->APB1ENR |= SET_TIM2_CLOCK_ENABLE;						/// enabled the clock of TIMER2
 	gpt2_ptr->TIMx_CR1 |= ENABLE_ARR_BUFFER;						/// Enabling ARR buffering ( will not update all of a sudden )
 	gpt2_ptr->TIMx_DIER |= ENABLE_UPDATE_INTERRUPT;					/// Enabling the update interrupt
 }
@@ -27,6 +28,7 @@ void timer2_set(uint32_t arr , uint32_t psc)
 
 void timer4_init(void)
 {
+	rcc_ptr->APB1ENR |= SET_TIM4_CLOCK_ENABLE;						/// Enabled the clock of TIMER4
 	gpt4_ptr->TIMx_CR1 |= ENABLE_ARR_BUFFER;						/// Enabling ARR buffering ( will not update all of a sudden )
 	gpt4_ptr->TIMx_DIER |= ENABLE_UPDATE_INTERRUPT;					/// Enabling the update interrupt
 }

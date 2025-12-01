@@ -1,0 +1,31 @@
+20:24:31 **** Incremental Build of configuration Debug for project IWDG_Temperature_sensor ****
+make -j12 all 
+arm-none-eabi-gcc "../App/src/app_main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"D:/Anas_Embedded system/STM32_Activities/Codes/IWDG_Temperature_sensor/App/inc" -I"D:/Anas_Embedded system/STM32_Activities/Codes/IWDG_Temperature_sensor/Services/inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"App/src/app_main.d" -MT"App/src/app_main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/src/app_main.o"
+../App/src/app_main.c:25:4: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   25 |   #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |    ^~~~~~~
+arm-none-eabi-gcc -o "IWDG_Temperature_sensor.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\Anas_Embedded system\STM32_Activities\Codes\IWDG_Temperature_sensor\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="IWDG_Temperature_sensor.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: IWDG_Temperature_sensor.elf
+ 
+arm-none-eabi-size  IWDG_Temperature_sensor.elf 
+arm-none-eabi-objdump -h -S IWDG_Temperature_sensor.elf  > "IWDG_Temperature_sensor.list"
+   text	   data	    bss	    dec	    hex	filename
+   4220	      4	   1580	   5804	   16ac	IWDG_Temperature_sensor.elf
+Finished building: default.size.stdout
+ 
+Finished building: IWDG_Temperature_sensor.list
+ 
+20:24:37 **** Incremental Build of configuration Debug for project IWDG_Temperature_sensor ****
+make -j12 all 
+arm-none-eabi-size  IWDG_Temperature_sensor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4220	      4	   1580	   5804	   16ac	IWDG_Temperature_sensor.elf
+Finished building: default.size.stdout
+ 
+20:26:54 **** Incremental Build of configuration Debug for project IWDG_Temperature_sensor ****
+make -j12 all 
+arm-none-eabi-size  IWDG_Temperature_sensor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4220	      4	   1580	   5804	   16ac	IWDG_Temperature_sensor.elf
+Finished building: default.size.stdout
+ 

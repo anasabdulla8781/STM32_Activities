@@ -1,7 +1,15 @@
 ../Services/src/STM32_ADC.c:14:6:adc_init_common	2
 ../Services/src/STM32_ADC.c:23:6:adc_init_internal_channels	3
+<<<<<<< Updated upstream
 ../Services/src/STM32_ADC.c:39:6:adc_init_individual_modules	4
 ../Services/src/STM32_ADC.c:64:6:adc_set_sequnce	4
 ../Services/src/STM32_ADC.c:86:6:adc_start_conversion	1
 ../Services/src/STM32_ADC.c:92:6:adc_get_value	2
 ../Services/src/STM32_ADC.c:97:6:adc_convert_value	2
+=======
+../Services/src/STM32_ADC.c:39:6:adc_init_individual_modules	3
+../Services/src/STM32_ADC.c:81:6:adc_set_sequnce	4
+../Services/src/STM32_ADC.c:103:6:adc_start_conversion	1
+../Services/src/STM32_ADC.c:108:6:adc_get_value	2
+../Services/src/STM32_ADC.c:113:6:adc_convert_value	2
+>>>>>>> Stashed changes

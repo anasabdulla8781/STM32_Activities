@@ -10,6 +10,7 @@
 
 
 #include <stdint.h>
+#include <STM32_RCC.h>
 
 typedef struct
 {

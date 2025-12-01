@@ -70,10 +70,23 @@ typedef struct
 #define SET_TIM4_CLOCK_ENABLE			0x04
 #define SET_SYSTEM_CONFIG_CLOCK_ENABLE	0x4000
 
+/// Macros for the reset reasons
+#define INDEPENDENT_WATCHDOG_RESET		1
+#define WINDOW_WATCHDOG_RESET			2
+#define RESET_BUTTON_RESET				3
+#define POWER_ON_RESET					4
+#define BROWN_OUT_RESET					5
+#define SOFTWARE_RESET					6
+#define UNKNOWN_RESET					7
+
+
+
 
 /// Function declarations
 
-extern void rcc_init (void);
+extern void clock_enable_LSI(void);
+extern void reset_reason_check (volatile uint8_t *reset_reason);
+void clock_init(void);
 
 
 #endif /* INC_STM32_RCC_H_ */

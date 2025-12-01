@@ -52,6 +52,7 @@ int main(void)
 
 	while (1)
 	{
+		gpioa_ptr->ODR ^= (1 << 5);
 		adc_get_value(adc1_ptr, &adc_value);
 		adc_convert_value(adc_value, &converted_value, 3);
 	}

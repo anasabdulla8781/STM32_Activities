@@ -27,31 +27,48 @@
 
 volatile uint16_t adc_value = 0;
 float converted_value = 0.0;
+volatile uint8_t reset_reason = 0;
 
 void service_init()
 {
-	rcc_init();
-	pin_init(0,PIN_ANALOG_INPUT,PORTA);
-	adc_init_common(ADC_INDEPENDENT_MODE);
-	adc_init_individual_modules(adc1_ptr,0);
-	adc_set_sequnce(adc1_ptr,0,1);
-	adc_start_conversion(adc1_ptr);
+	clock_init();
+    // 1. Reset flags FIRST
+    reset_reason_check(&reset_reason);
+
+    // 2. Enable temp sensor in ADC common block
+    adc_init_common(ADC_INDEPENDENT_MODE);
+    adc_init_internal_channels(INNER_TEMPERATURE_SENSOR);
+
+    // 3. Initialize ADC1 for channel 16 (internal temp sensor)
+    adc_init_individual_modules(adc1_ptr, 16);
+
+    // 4. Select channel in SQR3 (remove adc_set_sequence completely)
+    adc1_ptr->SQR3 = 16;               // channel 16, first conversion
+    adc1_ptr->SQR1 &= ~(0x0F << 20);   // sequence length = 1 conversion
+
+    // 5. Start ADC in continuous mode
+    adc_start_conversion(adc1_ptr);
+
+//    // 6. Freeze IWDG during debug
+//    dbgmcu_ptr->APB1_FZ |= (1 << 12);
 }
 
 void app_init()
 {
-
+    // empty for now
 }
-
 
 int main(void)
 {
-	service_init();
-	app_init();
+    service_init();
+    app_init();
 
-	while (1)
-	{
-		adc_get_value(adc1_ptr, &adc_value);
-		adc_convert_value(adc_value, &converted_value, 3);
-	}
+    while (1)
+    {
+        adc_get_value(adc1_ptr, &adc_value);
+        adc_convert_value(adc_value, &converted_value, INNER_TEMPERATURE_SENSOR);
+
+        // feed_watchdog();
+        // error_code();
+    }
 }

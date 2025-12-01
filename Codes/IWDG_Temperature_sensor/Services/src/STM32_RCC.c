@@ -1,5 +1,5 @@
 /*
- * STM32_RCC.c
+ * STM32_rcc_ptr.c
  *
  *  Created on: Oct 20, 2025
  *      Author: ANAS
@@ -9,14 +9,9 @@
 #include <STM32_RCC.h>
 
 
-void rcc_init (void)
+void clock_enable_LSI (void)
 {
 	rcc_ptr->AHB1ENR |= SET_GPTIO_CLOCK_ENABLE;					/// enabled the clock for GPIOs
-//	rcc_ptr->APB1ENR |= SET_TIM2_CLOCK_ENABLE;					/// enabled the clock of TIMER2
-//	rcc_ptr->APB1ENR |= SET_TIM4_CLOCK_ENABLE;					/// Enabled the clock of TIMER4
-
-
-
 }
 
 
@@ -40,3 +35,32 @@ void adc_clock_enable(ADC_STRUCTURE* adc_ptr)
 		;
 	}
 }
+
+void reset_reason_check(volatile uint8_t *reset_reason_ptr)
+{
+    uint32_t csr = rcc_ptr->CSR;  								/// Read the reset reason only once
+
+    if (csr & (1 << 29))
+        *reset_reason_ptr = INDEPENDENT_WATCHDOG_RESET;
+
+    else if (csr & (1 << 30))
+        *reset_reason_ptr = WINDOW_WATCHDOG_RESET;
+
+    else if (csr & (1 << 26))
+        *reset_reason_ptr = RESET_BUTTON_RESET;   					// NRST pin
+
+    else if (csr & (1 << 27))
+        *reset_reason_ptr = POWER_ON_RESET;       					// normal
+
+    else if (csr & (1 << 25))
+        *reset_reason_ptr = BROWN_OUT_RESET;      					// unstable power
+
+    else if (csr & (1 << 28))
+        *reset_reason_ptr = SOFTWARE_RESET;       					// NVIC_SystemReset
+
+    else
+        *reset_reason_ptr = UNKNOWN_RESET;
+
+    rcc_ptr->CSR |= (1 << 23);									// Clear all reset flags
+}
+

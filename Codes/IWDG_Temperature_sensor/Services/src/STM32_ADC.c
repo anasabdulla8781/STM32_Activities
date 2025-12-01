@@ -109,8 +109,8 @@ void adc_start_conversion(ADC_structure* adc_ptr)
 /// Step 10 - Reading the ADC Values based on Polling method
 void adc_get_value(ADC_structure * adc_ptr , volatile uint16_t* adc_measured_value)
 {
-	while (!(adc_ptr->SR & (0x01<<1)));											/// holding till the converions is getting completed
-	*adc_measured_value = adc_ptr->DR;											/// storing the converted value into the variable
+	while (!(adc_ptr->SR & (1 << 1)));  // wait for EOC
+	*adc_measured_value = adc_ptr->DR;
 }
 /// Step 11 - Perform the converions from the ADC value
 void adc_convert_value(volatile uint16_t adc_measured_value, float* converted_value ,uint8_t mode)

@@ -1,0 +1,17 @@
+# Ignore build folders
+Debug/
+Release/
+
+# Ignore build outputs
+*.elf
+*.o
+*.su
+*.map
+*.list
+*.cyclo
+*.exe
+*.bin
+*.hex
+
+# STM32CubeIDE specific
+.settings/

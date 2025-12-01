@@ -38,6 +38,7 @@ void adc_init_individual_modules(ADC_structure * adc_ptr , uint8_t channel)
 {
 	adc_ptr->CR1 &= ~(0x03 << 24);										/// clearing the resolution ( default 12bit resolution )
 	adc_ptr->CR2 |=  (1 << 0);    										/// ADON = 1 (ADC ON)
+	for (volatile int i = 0; i < 10000; i++); 							// give ADC time to power up
 	adc_ptr->CR2 |=  (1 << 1);    										/// CONT = 1 (continuous conversion)
 	adc_ptr->CR2 |= (0x01 << 10);   									/// EOCS after every conversion
 	adc_ptr->CR2 &= ~(1 << 11);   										/// ALIGN = right alignment
@@ -89,8 +90,10 @@ void adc_start_conversion(ADC_structure * adc_ptr)
 
 void adc_get_value(ADC_structure * adc_ptr , volatile uint16_t* adc_measured_value)
 {
-	while (!(adc_ptr->SR & (0x01<<1)));									/// holding till the converions is getting completed
-	*adc_measured_value = adc_ptr->DR;									/// storing the converted value into the variable
+    if (adc_ptr->SR & (1 << 1))     // EOC
+    {
+        *adc_measured_value = adc_ptr->DR;
+    }
 }
 void adc_convert_value(volatile uint16_t adc_measured_value, float* converted_value ,uint8_t mode)
 {

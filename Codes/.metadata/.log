@@ -1,0 +1,98 @@
+!SESSION 2025-11-24 22:58:20.283 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-11-24 22:58:28.141
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-11-24 22:58:28.144
+!MESSAGE Log4j2 initialized with config file D:\Anas_Embedded system\STM32_Activities\Codes\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-11-24 22:58:30.978
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-11-24 22:58:51.255
+!MESSAGE Indexed 'System_timer' (10 sources, 63 headers) in 0.694 sec: 2,204 declarations; 3,618 references; 0 unresolved inclusions; 2 syntax errors; 2 unresolved names (0.034%)
+!SESSION 2025-11-26 20:49:49.315 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-11-26 20:50:04.840
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-11-26 20:50:04.843
+!MESSAGE Log4j2 initialized with config file D:\Anas_Embedded system\STM32_Activities\Codes\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-11-26 20:50:16.336
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-11-26 20:50:53.660
+!MESSAGE Indexed 'ADC_Potentiometer' (10 sources, 69 headers) in 1.06 sec: 2,352 declarations; 3,762 references; 0 unresolved inclusions; 2 syntax errors; 2 unresolved names (0.033%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-11-26 20:51:09.690
+!MESSAGE Indexed 'IWDG_Temperature_sensor' (10 sources, 63 headers) in 0.7 sec: 2,186 declarations; 3,582 references; 0 unresolved inclusions; 2 syntax errors; 2 unresolved names (0.035%)
+!SESSION 2025-11-29 09:45:22.943 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-11-29 09:45:32.795
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-11-29 09:45:32.796
+!MESSAGE Log4j2 initialized with config file D:\Anas_Embedded system\STM32_Activities\Codes\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-11-29 09:45:38.738
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.core.resources 4 77 2025-11-30 19:10:11.178
+!MESSAGE Invalid project description.
+!SUBENTRY 1 unknown 0 0 2025-11-30 19:10:11.178
+!MESSAGE OK
+!SUBENTRY 1 org.eclipse.core.resources 4 77 2025-11-30 19:10:11.178
+!MESSAGE D:\Anas_Embedded system\STM32_Activities\Codes\ADC_Potentiometer overlaps the location of another project: 'ADC_Potentiometer'
+
+!ENTRY com.st.stm32cube.common.projectcreation 4 0 2025-11-30 19:10:11.179
+!MESSAGE Project is null
+
+!ENTRY org.eclipse.cdt.dsf.gdb 4 5012 2025-11-30 20:02:33.566
+!MESSAGE Error in final launch sequence:
+
+Setup exceptions
+!STACK 1
+org.eclipse.core.runtime.CoreException: Setup exceptions
+	at org.eclipse.cdt.dsf.concurrent.Query.get(Query.java:112)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launchDebugSession(GdbLaunchDelegate.java:252)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launchDebugger(GdbLaunchDelegate.java:109)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launch(GdbLaunchDelegate.java:97)
+	at com.st.stm32cube.ide.mcu.debug.launch.DSFDelegate.launch(DSFDelegate.java:336)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:805)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:716)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1054)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$1.run(DebugUIPlugin.java:1257)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SUBENTRY 1 com.st.stm32cube.ide.mcu.debug.launch 4 0 2025-11-30 20:02:33.569
+!MESSAGE Setup exceptions
+!SESSION 2025-12-01 21:49:14.121 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -data D:\Anas_Embedded system\STM32_Activities\Codes
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-12-01 21:49:21.402
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-12-01 21:49:21.404
+!MESSAGE Log4j2 initialized with config file D:\Anas_Embedded system\STM32_Activities\Codes\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-12-01 21:49:33.677
+!MESSAGE Started RMI Server, listening on port 41337

@@ -11,6 +11,7 @@
 
 void pin_init(uint8_t pin , uint8_t mode , uint8_t port)
 {
+	rcc_ptr->AHB1ENR |= SET_GPTIO_CLOCK_ENABLE;					/// enabled the clock for GPIOs
 	if( port == PORTD )
 	{
 		switch(mode)

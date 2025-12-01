@@ -61,8 +61,8 @@ all: main-build
 main-build: IWDG_Temperature_sensor.elf secondary-outputs
 
 # Tool invocations
-IWDG_Temperature_sensor.elf IWDG_Temperature_sensor.map: $(OBJS) $(USER_OBJS) D:\Embedded\ systems\STM32_Activities\Codes\IWDG_Temperature_sensor\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "IWDG_Temperature_sensor.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\Embedded systems\STM32_Activities\Codes\IWDG_Temperature_sensor\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="IWDG_Temperature_sensor.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+IWDG_Temperature_sensor.elf IWDG_Temperature_sensor.map: $(OBJS) $(USER_OBJS) D:\Anas_Embedded\ system\STM32_Activities\Codes\IWDG_Temperature_sensor\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "IWDG_Temperature_sensor.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\Anas_Embedded system\STM32_Activities\Codes\IWDG_Temperature_sensor\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="IWDG_Temperature_sensor.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
