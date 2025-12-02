@@ -12,6 +12,7 @@ Release/
 *.exe
 *.bin
 *.hex
+*.d
 
 # STM32CubeIDE specific
 .settings/
