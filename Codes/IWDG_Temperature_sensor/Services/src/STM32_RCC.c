@@ -7,7 +7,7 @@
 
 
 #include <STM32_RCC.h>
-
+#include <STM32_ADC.h>
 
 void clock_enable_LSI (void)
 {
@@ -15,7 +15,7 @@ void clock_enable_LSI (void)
 }
 
 
-void adc_clock_enable(ADC_STRUCTURE* adc_ptr)
+void adc_clock_enable(ADC_structure* adc_ptr)
 {
 
 	if (adc_ptr == adc1_ptr)

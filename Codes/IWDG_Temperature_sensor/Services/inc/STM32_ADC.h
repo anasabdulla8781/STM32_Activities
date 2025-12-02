@@ -10,6 +10,7 @@
 
 #include <stdint.h>
 #include <STM32_RCC.h>
+#include "STM32_GPIO.h"
 
 
 typedef struct
@@ -19,7 +20,7 @@ typedef struct
     volatile uint32_t CDR;   // 0x08: Common regular data register
 } ADC_Common_structure;
 
-typedef struct
+typedef struct ADC_structure
 {
     volatile uint32_t SR;       // 0x00: Status register
     volatile uint32_t CR1;      // 0x04: Control register 1
@@ -82,6 +83,10 @@ typedef struct
 #define TEMPERATURE_SENSOR_SLOPE	0.0025
 #define INNER_TEMPERATURE_SENSOR	1
 #define REFERANCE_TEMPERATURE	25.00
+
+/// EOS Related macros
+#define ALL_CYCLE_CONVERSION	1
+#define SEQUENCE_CONVERSION		2
 
 
 /// Global function declarations

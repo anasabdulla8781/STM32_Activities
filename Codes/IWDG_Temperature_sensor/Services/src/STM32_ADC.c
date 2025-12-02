@@ -9,7 +9,6 @@
 /// Version 1.1
 
 #include <STM32_ADC.h>
-#include "STM32_GPIO.h"
 #include "STM32_RCC.h"
 
 
@@ -62,7 +61,7 @@ void adc_init_module(ADC_structure * adc_ptr , uint8_t channel, uint8_t mode , u
 
 	/// Step 6 - Setting up the conversion mode . single or continours
 
-	adc_ptr->CR2 |= 1<<1;												/// Set in the continous mode
+	adc_ptr->CR2 &= ~(1<<1);												/// Set in the Single conversion mode
 
 	/// Step 7 - Setting the EOC as convertion after every convertion
 
@@ -102,13 +101,23 @@ void adc_init_module(ADC_structure * adc_ptr , uint8_t channel, uint8_t mode , u
 /// Step 9 - Start the conversion
 void adc_start_conversion(ADC_structure* adc_ptr)
 {
-	adc_ptr->CR2 |= (1 << 30); 											// SWSTART
+    // 1. Clear OVR properly (read DR if OVR set)
+    if (adc_ptr->SR & (1 << 5))   // OVR?
+    {
+        volatile uint32_t dummy = adc_ptr->DR;  // reading DR clears OVR
+        (void)dummy;
+    }
+
+    // 2. Clear EOC and OVR flags
+    adc_ptr->SR &= ~((1 << 1) | (1 << 5));
+	adc_ptr->CR2 |= (1 << 30); 											// SWSTART - start the conversion
 	for (volatile int i=0; i<100; i++);									/// Added a small delay
 }
 
 /// Step 10 - Reading the ADC Values based on Polling method
 void adc_get_value(ADC_structure * adc_ptr , volatile uint16_t* adc_measured_value)
 {
+	adc_start_conversion(adc_ptr);
 	while (!(adc_ptr->SR & (1 << 1)));  // wait for EOC
 	*adc_measured_value = adc_ptr->DR;
 }

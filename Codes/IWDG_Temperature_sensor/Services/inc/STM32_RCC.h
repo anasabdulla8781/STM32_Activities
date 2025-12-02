@@ -80,13 +80,14 @@ typedef struct
 #define UNKNOWN_RESET					7
 
 
+struct ADC_structure;
 
 
 /// Function declarations
 
 extern void clock_enable_LSI(void);
 extern void reset_reason_check (volatile uint8_t *reset_reason);
-void clock_init(void);
+extern void adc_clock_enable(struct ADC_structure* adc_ptr);
 
 
 #endif /* INC_STM32_RCC_H_ */
