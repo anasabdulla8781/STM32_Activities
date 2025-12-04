@@ -9,9 +9,10 @@
 #include <STM32_RCC.h>
 #include <STM32_ADC.h>
 
-void clock_enable_LSI (void)
+void LSI_clock_enable (void)
 {
-	rcc_ptr->AHB1ENR |= SET_GPTIO_CLOCK_ENABLE;					/// enabled the clock for GPIOs
+	rcc_ptr->CSR |= 1<<0;					/// Set the LSI clock
+	while (!(rcc_ptr->CSR & (1<<1)));
 }
 
 

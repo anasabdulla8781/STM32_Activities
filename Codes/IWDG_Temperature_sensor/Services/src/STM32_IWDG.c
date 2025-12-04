@@ -14,9 +14,9 @@
 
 void init_independent_watchdog(void)
 {
-	// No need to set the clock of independent watchdog ( its working in LSI , always on , not through APB / AHP )
+	LSI_clock_enable();
 	init_dbgmcu();
-	clock_enable_LSI();
+
 	iwdg_ptr->KR = PRESCALAR_AND_RELOAD_ACCESS;			// Getting the access to prescalar and reload register
 	iwdg_ptr->PR = 6;   								// Setting the prescalar to 256
 	iwdg_ptr->RLR = 4000;								// Setting the timing for 1 second ( reset time )
