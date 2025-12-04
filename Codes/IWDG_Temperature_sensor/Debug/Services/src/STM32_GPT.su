@@ -1,0 +1,6 @@
+../Services/src/STM32_GPT.c:14:6:timer2_init	4	static
+../Services/src/STM32_GPT.c:21:6:timer2_set	16	static
+../Services/src/STM32_GPT.c:29:6:timer4_init	4	static
+../Services/src/STM32_GPT.c:36:6:timer4_set_generic	16	static
+../Services/src/STM32_GPT.c:42:6:timer4_set_pwm	16	static
+../Services/src/STM32_GPT.c:91:6:timer4_start	4	static
