@@ -13,5 +13,6 @@
 extern volatile uint8_t upcounter;
 
 extern void fade_led_program(void);
+extern void watchdog_blocking_program (void);
 
 #endif /* INC_APP_FEATURE_H_ */

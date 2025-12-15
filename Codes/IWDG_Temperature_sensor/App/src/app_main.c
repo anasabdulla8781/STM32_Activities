@@ -31,14 +31,20 @@ volatile uint8_t reset_reason = 0;
 
 void service_init()
 {
+	/// Setting up the watchdog
+	init_independent_watchdog();
+	/// Setting up the temperature sensor
 	adc_init_common(ADC_INDEPENDENT_MODE);
 	adc_init_module(adc1_ptr , 16, INTERNAL_CHANNEL_TEMPERATURE_SENSOR , ALL_CYCLE_CONVERSION , 1);
 	adc_start_conversion(adc1_ptr);
+	/// Setting up user pin and LED pin
+	pin_init(PIN_0,PIN_GENERAL_INPUT,PORTA);
+	pin_init(PIN_12,PIN_OUTPUT,PORTD);
 }
 
 void app_init()
 {
-    // empty for now
+	reset_reason_check(&reset_reason);
 }
 
 int main(void)
@@ -50,5 +56,7 @@ int main(void)
     {
     	adc_get_value(adc1_ptr,&adc_value);
     	adc_convert_value(adc_value,&converted_value,INNER_TEMPERATURE_SENSOR);
+    	feed_watchdog();
+    	watchdog_blocking_program();
     }
 }

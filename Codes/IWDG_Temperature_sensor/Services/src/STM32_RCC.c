@@ -47,11 +47,11 @@ void reset_reason_check(volatile uint8_t *reset_reason_ptr)
     else if (csr & (1 << 30))
         *reset_reason_ptr = WINDOW_WATCHDOG_RESET;
 
-    else if (csr & (1 << 26))
-        *reset_reason_ptr = RESET_BUTTON_RESET;   					// NRST pin
-
     else if (csr & (1 << 27))
         *reset_reason_ptr = POWER_ON_RESET;       					// normal
+
+    else if (csr & (1 << 26))
+        *reset_reason_ptr = RESET_BUTTON_RESET;   					// NRST pin
 
     else if (csr & (1 << 25))
         *reset_reason_ptr = BROWN_OUT_RESET;      					// unstable power
@@ -62,6 +62,6 @@ void reset_reason_check(volatile uint8_t *reset_reason_ptr)
     else
         *reset_reason_ptr = UNKNOWN_RESET;
 
-    rcc_ptr->CSR |= (1 << 23);									// Clear all reset flags
+    rcc_ptr->CSR |= (1 << 24);									// Clear all reset flags
 }
 

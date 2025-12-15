@@ -68,6 +68,7 @@ typedef struct
 #define PIN_OUTPUT 	1
 #define PIN_ANALOG_INPUT	2
 #define PIN_ALTERNATE_FUNCTION	3
+#define PIN_GENERAL_INPUT	4
 
 #define AF2	2
 
@@ -76,11 +77,30 @@ typedef struct
 #define PORTC	3
 #define PORTD	4
 
+#define PIN_0      0
+#define PIN_1      1
+#define PIN_2      2
+#define PIN_3      3
+#define PIN_4      4
+#define PIN_5      5
+#define PIN_6      6
+#define PIN_7      7
+#define PIN_8      8
+#define PIN_9      9
+#define PIN_10     10
+#define PIN_11     11
+#define PIN_12     12
+#define PIN_13     13
+#define PIN_14     14
+#define PIN_15     15
+
+
 
 /// FUNCTION DEFINITIONS
 extern void pin_init(uint8_t pin,uint8_t mode , uint8_t port);
 extern void pin_operations(uint8_t pin , uint8_t state);
 extern void set_alternate_function_portD ( uint8_t pin_number );
+extern uint8_t pin_state_check(uint8_t pin , GPIO_structure * gpio_ptr);
 
 
 #endif /* INC_STM32_GPIO_H_ */

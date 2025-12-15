@@ -45,6 +45,5 @@ typedef struct
 // Function declarations
 extern void init_independent_watchdog(void);
 extern void feed_watchdog(void);
-extern void error_code(void);
 
 #endif /* INC_STM32_IWDG_H_ */

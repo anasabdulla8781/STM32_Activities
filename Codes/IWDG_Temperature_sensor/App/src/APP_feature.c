@@ -39,3 +39,20 @@ void fade_led_program(void)
         }
     }
 }
+
+void watchdog_blocking_program (void)
+{
+	uint8_t button_flag = 0;
+	if (pin_state_check(PIN_0,gpioa_ptr))
+	{
+		button_flag = 1;
+	}
+
+	while (button_flag)
+	{
+		pin_operations(PIN_12 , ON);
+		for (uint32_t i = 0; i<100; i++);
+		pin_operations(PIN_12 , OFF);
+		for (uint32_t i = 0; i<100; i++);
+	}
+}

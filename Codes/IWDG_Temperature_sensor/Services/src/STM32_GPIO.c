@@ -28,6 +28,9 @@ void pin_init(uint8_t pin , uint8_t mode , uint8_t port)
 				gpiod_ptr->MODER &= ~(0X03<<(pin*2));		/// clearing the mode bits for the LED
 				gpiod_ptr->MODER |= (0x02 << (pin*2));		/// setting the mode bits as alternate function mode for the LED
 				break;
+			case PIN_GENERAL_INPUT:
+				gpiod_ptr->MODER &= ~(0X03<<(pin*2));		/// clearing the mode bits for the pin . so it will be 0 . meaning general input
+				break;
 
 			default:
 				break;
@@ -48,6 +51,9 @@ void pin_init(uint8_t pin , uint8_t mode , uint8_t port)
 			case PIN_ALTERNATE_FUNCTION:
 				gpioa_ptr->MODER &= ~(0X03<<(pin*2));		/// clearing the mode bits for the LED
 				gpioa_ptr->MODER |= (0x02 << (pin*2));		/// setting the mode bits as alternate function mode for the LED
+				break;
+			case PIN_GENERAL_INPUT:
+				gpioa_ptr->MODER &= ~(0X03<<(pin*2));		/// clearing the mode bits for the pin . so it will be 0 . meaning general input
 				break;
 
 			default:
@@ -87,3 +93,10 @@ void set_alternate_function_portD ( uint8_t pin_number )
 	}
 }
 
+uint8_t pin_state_check(uint8_t pin , GPIO_structure *gpio_ptr)
+{
+    if (gpio_ptr->IDR & (1 << pin))
+        return 1;
+    else
+        return 0;
+}
