@@ -1,0 +1,2 @@
+../Services/src/STM32_IWDG.c:15:6:init_independent_watchdog	8	static
+../Services/src/STM32_IWDG.c:34:6:feed_watchdog	4	static
