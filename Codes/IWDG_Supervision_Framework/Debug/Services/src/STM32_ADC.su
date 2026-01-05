@@ -1,0 +1,5 @@
+../Services/src/STM32_ADC.c:16:6:adc_init_module	32	static
+../Services/src/STM32_ADC.c:102:6:adc_start_conversion	24	static
+../Services/src/STM32_ADC.c:118:6:adc_get_value	16	static
+../Services/src/STM32_ADC.c:125:6:adc_convert_value	24	static
+../Services/src/STM32_ADC.c:141:6:adc_init_common	16	static
