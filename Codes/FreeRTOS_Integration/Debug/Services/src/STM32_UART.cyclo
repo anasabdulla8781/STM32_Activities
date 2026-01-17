@@ -1,0 +1,4 @@
+../Services/src/STM32_UART.c:11:6:uart2_init	1
+../Services/src/STM32_UART.c:29:6:uart2_set_baud_rate	3
+../Services/src/STM32_UART.c:53:6:uart2_enable	1
+../Services/src/STM32_UART.c:61:6:uart2_write_char	2

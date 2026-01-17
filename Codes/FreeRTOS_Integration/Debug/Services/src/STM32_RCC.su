@@ -1,0 +1,4 @@
+../Services/src/STM32_RCC.c:12:6:LSI_clock_enable	4	static
+../Services/src/STM32_RCC.c:20:6:usart2_clock_enable	4	static
+../Services/src/STM32_RCC.c:26:6:adc_clock_enable	16	static
+../Services/src/STM32_RCC.c:47:6:reset_reason_check	24	static
