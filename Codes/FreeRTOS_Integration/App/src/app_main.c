@@ -20,6 +20,7 @@
 #include <app_main.h>
 #include <service.h>
 #include <app_feature.h>
+#include <rtos.h>
 
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
   #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
@@ -29,8 +30,7 @@
 
 void service_init()
 {
-	FPU_Enable();
-	uart2_init();
+	/// Empty
 }
 
 void app_init()
@@ -40,12 +40,13 @@ void app_init()
 
 int main(void)
 {
-    service_init();
-    app_init();
+
+	app_init();
+	service_init();
+	/// We will create a task here
 
     while (1)
     {
-    	uart2_write_char('A');
-    	uart2_write_char('B');
+    	/// Empty
     }
 }
