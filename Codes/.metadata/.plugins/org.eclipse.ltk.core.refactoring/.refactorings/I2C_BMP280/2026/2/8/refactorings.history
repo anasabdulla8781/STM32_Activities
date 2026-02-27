@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;I2C_BMP280/Services/inc/STM32_I2C&apos; to &apos;STM32_I2C.h&apos;" description="Rename resource &apos;STM32_I2C&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Services/inc/STM32_I2C" name="STM32_I2C.h" stamp="1771665128863" updateReferences="true"/>
+</session>

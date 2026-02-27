@@ -1,0 +1,36 @@
+/*
+ * STM32_I2C.h
+ *
+ *  Created on: Feb 21, 2026
+ *      Author: ANAS
+ */
+
+#ifndef INC_STM32_I2C_H_
+#define INC_STM32_I2C_H_
+
+
+/// I2C Memory map strucutre
+
+typedef struct
+{
+	uint32_t	CR1;			/// Control register 1
+	uint32_t	CR2;			/// Control register 2
+	uint32_t	OAR1;
+	uint32_t	OAR2;
+	uint32_t	DR;
+	uint32_t	SR1;
+	uint32_t	SR2;
+	uint32_t	CCR;
+	uint32_t	TRISE;
+	uint32_t	FLTR;
+}i2c_strucutre;
+
+// MACROS
+
+/// Differant I2C Chips
+#define I2C_1	1
+#define I2C_2	2
+#define I2C_3	3
+
+
+#endif /* INC_STM32_I2C_H_ */
