@@ -1,6 +1,0 @@
-../Services/src/STM32_RCC.c:14:6:LSI_clock_enable	2
-../Services/src/STM32_RCC.c:22:6:usart2_clock_enable	1
-../Services/src/STM32_RCC.c:28:6:adc_clock_enable	4
-../Services/src/STM32_RCC.c:49:6:i2c_clock_enable	4
-../Services/src/STM32_RCC.c:69:6:gpio_clock_enable	1
-../Services/src/STM32_RCC.c:74:6:reset_reason_check	7

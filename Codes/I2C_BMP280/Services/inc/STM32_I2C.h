@@ -9,6 +9,8 @@
 #define INC_STM32_I2C_H_
 
 
+#include <stdint.h>
+
 /// I2C Memory map strucutre
 
 typedef struct

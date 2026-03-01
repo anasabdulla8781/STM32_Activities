@@ -18,19 +18,19 @@ void gpio_pin_set_mode(uint8_t pin , uint8_t mode , GPIO_structure* gpio_ptr)
 }
 
 
-void pin_operations (uint8_t pin , uint8_t state)
+void gpio_output_operations (GPIO_structure* gpio_ptr , uint8_t pin , uint8_t state)
 {
-	if(state == TOGGLE)
+	if(state == SET_TOGGLE)
 	{
-		gpiod_ptr->ODR ^= (1<<pin);					/// toggling the LED
+		gpio_ptr->ODR ^= (1<<pin);					/// Toggle the pin
 	}
-	else if (state == ON)
+	else if (state == SET_HIGH)
 	{
-		gpiod_ptr->ODR |= (1<<pin);				/// Turn on the LED
+		gpio_ptr->ODR |= (1<<pin);					/// Drive the pin to High
 	}
-	else
+	else if(state == SET_LOW)
 	{
-		gpiod_ptr->ODR &= ~(1<<pin);				/// Turn off the LED
+		gpio_ptr->ODR &= ~(1<<pin);					/// Drive the pin to Low
 	}
 }
 
@@ -67,5 +67,51 @@ void gpio_set_pullup_pulldown(GPIO_structure* gpio_ptr , uint8_t pin_number , ui
 	if (pin_number>15 || pullup_down_value > 3)	return;						/// Safety check - Pin shouldnt be more than 15 and we have maximum 4 configured pull up or downs
 	gpio_ptr->PUPDR &= ~ (0x03 << (pin_number*2));							/// Clearing the particular pins needed to set the pull up or down
 	gpio_ptr->PUPDR |= ( pullup_down_value << (pin_number*2));				/// We set the output speed
+}
+
+void gpio_spi1_config(void)
+{
+	/// Step 1 - Setting the pins in alternate function mode
+	gpio_pin_set_mode(SPI1_NSS,PIN_OUTPUT,gpioa_ptr);								/// PA4 Set in Output mode for SPI1 NSS (Chip select pin , we need control over it)
+	gpio_pin_set_mode(SPI1_SCLK,PIN_ALTERNATE_FUNCTION,gpioa_ptr);					/// PA5 Set in alternate function mode for SPI1 SCLK
+	gpio_pin_set_mode(SPI1_MISO,PIN_ALTERNATE_FUNCTION,gpioa_ptr);					/// PA6 Set in alternate function mode for SPI1 MISO
+	gpio_pin_set_mode(SPI1_MOSI,PIN_ALTERNATE_FUNCTION,gpioa_ptr);					/// PA7 Set in alternate function mode for SPI1 MOSI
+	/// Step 2 - Setting these pins to AF5
+	gpio_set_alternate_function(gpioa_ptr,SPI1_SCLK,AF5);							/// PA5 - AF5
+	gpio_set_alternate_function(gpioa_ptr,SPI1_MISO,AF5);							/// PA6 - AF5
+	gpio_set_alternate_function(gpioa_ptr,SPI1_MOSI,AF5);							/// PA7 - AF5
+	/// Step 3 - Setting the Output types as pushpull - SPI needs it (Miso is input , leave it)
+	gpio_set_output_type(gpioa_ptr,SPI1_NSS,OUTPUT_PUSH_PULL);
+	gpio_set_output_type(gpioa_ptr,SPI1_SCLK,OUTPUT_PUSH_PULL);
+	gpio_set_output_type(gpioa_ptr,SPI1_MOSI,OUTPUT_PUSH_PULL);
+	/// Step 4 - Setting the output pin speeds
+	gpio_set_output_speed(gpioa_ptr,SPI1_NSS,VERY_HIGH_SPEED);
+	gpio_set_output_speed(gpioa_ptr,SPI1_SCLK,VERY_HIGH_SPEED);
+	gpio_set_output_speed(gpioa_ptr,SPI1_MOSI,VERY_HIGH_SPEED);
+	/// Step 5 - Configure pull-up/pull-down (none required for SPI)
+	gpio_set_pullup_pulldown(gpioa_ptr,SPI1_NSS,NO_PULLUP_PULLDOWN);
+	gpio_set_pullup_pulldown(gpioa_ptr,SPI1_SCLK,NO_PULLUP_PULLDOWN);
+	gpio_set_pullup_pulldown(gpioa_ptr,SPI1_MOSI,NO_PULLUP_PULLDOWN);
+	/// Step 6 - Making the default Cs pin high
+	gpio_output_operations(gpioa_ptr,SPI1_NSS,SET_HIGH);
+}
+
+void gpio_i2c_config(void)
+{
+	/// Step 1 - Set the pins we are using to alternate function mode ( PB6 and PB7 )
+	gpio_pin_set_mode(6,PIN_ALTERNATE_FUNCTION,gpiob_ptr);		/// To set PB6 to alternate function mode
+	gpio_pin_set_mode(7,PIN_ALTERNATE_FUNCTION,gpiob_ptr);		/// To set PB7 to alternate function mode
+	/// Step 2 - Set the alternate modes properly
+	gpio_set_alternate_function(gpiob_ptr,6,AF4);
+	gpio_set_alternate_function(gpiob_ptr,7,AF4);
+	/// Step 3 - Set the gpio pins to open drain configuration
+	gpio_set_output_type(gpiob_ptr,6,OUTPUT_OPEN_DRAIN);
+	gpio_set_output_type(gpiob_ptr,7,OUTPUT_OPEN_DRAIN);
+	/// Step 4 - Set the output speeds
+	gpio_set_output_speed(gpiob_ptr, 6 , VERY_HIGH_SPEED);
+	gpio_set_output_speed(gpiob_ptr, 7 , VERY_HIGH_SPEED);
+	/// Step 5 - Set the Pull up resistors
+	gpio_set_pullup_pulldown(gpiob_ptr, 6 , PULLUP);
+	gpio_set_pullup_pulldown(gpiob_ptr, 7 , PULLUP);
 }
 

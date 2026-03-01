@@ -10,6 +10,7 @@
 
 #include <stdint.h>
 #include <STM32_RCC.h>
+#include <STM32_SPI.h>
 
 /// GPIO Structure
 
@@ -62,9 +63,9 @@ typedef struct
 #define RED_LED_PIN		14
 
 /// Macros for differant operations
-#define ON		1
-#define OFF		0
-#define TOGGLE	2
+#define SET_LOW			0
+#define SET_HIGH		1
+#define SET_TOGGLE		2
 
 /// Macros for modes
 #define PIN_INPUT					0
@@ -77,6 +78,7 @@ typedef struct
 #define AF2	2
 #define AF3	3
 #define AF4	4
+#define AF5	5
 
 /// Macros for differant Ports
 #define PORTA	0
@@ -101,13 +103,15 @@ typedef struct
 #define RESERVED				3
 
 
-/// FUNCTION DEFINITIONS
+/// FUNCTION DECLARATIONS
 extern void gpio_pin_set_mode(uint8_t pin , uint8_t mode , GPIO_structure* gpio_ptr);
-extern void pin_operations(uint8_t pin , uint8_t state);
+extern void gpio_output_operations (GPIO_structure* gpio_ptr , uint8_t pin , uint8_t state);
 extern void gpio_set_alternate_function(GPIO_structure* gpio_ptr , uint8_t pin_number, uint8_t af_number);
 extern void gpio_set_output_type(GPIO_structure* gpio_ptr , uint8_t pin_number , uint8_t output_type);
 extern void gpio_set_output_speed(GPIO_structure* gpio_ptr , uint8_t pin_number , uint8_t output_speed);
 extern void gpio_set_pullup_pulldown(GPIO_structure* gpio_ptr , uint8_t pin_number , uint8_t pullup_down_value);
+extern void gpio_i2c_config(void);
+extern void gpio_spi1_config(void);
 
 
 #endif /* INC_STM32_GPIO_H_ */

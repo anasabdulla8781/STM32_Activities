@@ -6,6 +6,7 @@
 "./Services/src/STM32_DBGMCU.o"
 "./Services/src/STM32_GPIO.o"
 "./Services/src/STM32_GPT.o"
+"./Services/src/STM32_I2C.o"
 "./Services/src/STM32_IWDG.o"
 "./Services/src/STM32_NVIC.o"
 "./Services/src/STM32_RCC.o"

@@ -91,6 +91,7 @@ extern void adc_clock_enable(struct ADC_structure* adc_ptr);
 extern void usart2_clock_enable(void);
 extern void i2c_clock_enable(uint8_t module);
 extern void gpio_clock_enable(uint8_t port);
+extern void spi_clock_enable(uint8_t module);
 
 
 #endif /* INC_STM32_RCC_H_ */

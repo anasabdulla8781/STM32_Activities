@@ -25,29 +25,18 @@
   #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
 #endif
 
-
+uint8_t rx_byte = 0;
 
 void service_init()
 {
-	/// Step 1 - Enable the clock for GPIOB ( we are using PB6 and PB7 in our code )
-	gpio_clock_enable(PORTB);								/// Enable the clock for GPIOB ( i2c1 module communicaites through PB6 and PB7 )
-	/// Step 2 - Set the pins we are using to alternate function mode ( PB6 and PB7 )
-	gpio_pin_set_mode(6,PIN_ALTERNATE_FUNCTION,gpiob_ptr);		/// To set PB6 to alternate function mode
-	gpio_pin_set_mode(7,PIN_ALTERNATE_FUNCTION,gpiob_ptr);		/// To set PB7 to alternate function mode
-	/// Step 3 - Set the alternate modes properly
-	gpio_set_alternate_function(gpiob_ptr,6,AF4);
-	gpio_set_alternate_function(gpiob_ptr,7,AF4);
-	/// Step 4 - Set the gpio pins to open drain configuration
-	gpio_set_output_type(gpiob_ptr,6,OUTPUT_OPEN_DRAIN);
-	gpio_set_output_type(gpiob_ptr,7,OUTPUT_OPEN_DRAIN);
-	/// Step 5 - Set the output speeds
-	gpio_set_output_speed(gpiob_ptr, 6 , VERY_HIGH_SPEED);
-	gpio_set_output_speed(gpiob_ptr, 7 , VERY_HIGH_SPEED);
-	/// Step 6 - Set the Pull up resistors
-	gpio_set_pullup_pulldown(gpiob_ptr, 6 , PULLUP);
-	gpio_set_pullup_pulldown(gpiob_ptr, 7 , PULLUP);
-	/// Step 4 - Enable clock for the I2C properly
-	i2c_clock_enable(I2C_1);								/// Enable the clock for I2C1
+	/// Step 1 - Enable the clock for GPIOA . we are using port a pins for SPI1
+	gpio_clock_enable(PORTA);
+	/// Step 2 - Enable clock for SPI1
+	spi_clock_enable(SPI1);
+	/// Step 3 - Pin init configurations
+	gpio_spi1_config();
+	/// Step 4 - SPI init configurations
+	spi_init_config(spi1_ptr);
 }
 
 void app_init()
@@ -60,8 +49,13 @@ int main(void)
     service_init();
     app_init();
 
-    while (1)
+    while(1)
     {
-
+    	/// This is a loopback test . So connect PA6 to PA7 for testing ( Mosi to Miso )
+    	gpio_output_operations(gpioa_ptr,SPI1_NSS,SET_LOW);
+        rx_byte = spi_transfer(spi1_ptr, 0xA5);
+        rx_byte = spi_transfer(spi1_ptr, 0x60);
+        rx_byte = spi_transfer(spi1_ptr, 0x15);
+        gpio_output_operations(gpioa_ptr,SPI1_NSS,SET_HIGH);
     }
 }

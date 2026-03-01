@@ -10,6 +10,7 @@
 #include <STM32_ADC.h>
 #include <STM32_I2C.h>
 #include <STM32_GPIO.h>
+#include <STM32_SPI.h>
 
 void LSI_clock_enable (void)
 {
@@ -69,6 +70,24 @@ void i2c_clock_enable(uint8_t module)
 void gpio_clock_enable(uint8_t port)
 {
 	rcc_ptr->AHB1ENR |= 1<<port;							//// Enabled the clock for GPIO Module
+}
+
+void spi_clock_enable(uint8_t module)
+{
+	switch(module)
+	{
+	case SPI1:
+		rcc_ptr->APB2ENR |= (1<<12);
+		break;
+	case SPI2:
+		rcc_ptr->APB1ENR |= (1<<14);
+		break;
+	case SPI3:
+		rcc_ptr->APB1ENR |= (1<<15);
+		break;
+	default:
+		break;
+	}
 }
 
 void reset_reason_check(volatile uint8_t *reset_reason_ptr)
