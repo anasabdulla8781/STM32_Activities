@@ -92,6 +92,7 @@ void gpio_spi1_config(void)
 	gpio_set_pullup_pulldown(gpioa_ptr,SPI1_NSS,NO_PULLUP_PULLDOWN);
 	gpio_set_pullup_pulldown(gpioa_ptr,SPI1_SCLK,NO_PULLUP_PULLDOWN);
 	gpio_set_pullup_pulldown(gpioa_ptr,SPI1_MOSI,NO_PULLUP_PULLDOWN);
+	gpio_set_pullup_pulldown(gpioa_ptr, SPI1_MISO, PULLUP);
 	/// Step 6 - Making the default Cs pin high
 	gpio_output_operations(gpioa_ptr,SPI1_NSS,SET_HIGH);
 }

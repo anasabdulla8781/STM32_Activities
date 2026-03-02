@@ -46,3 +46,23 @@ uint8_t spi_transfer(spi_structure* spi_ptr , uint8_t data)
 	return received;
 }
 
+
+void spi_transfer_buffer(spi_structure* spi_ptr, uint8_t *tx_buffer, uint8_t *rx_buffer, uint32_t length)
+{
+    for(uint32_t i = 0; i < length; i++)
+    {
+        uint8_t tx_data = 0xFF;
+
+        if(tx_buffer != NULL)
+        {
+            tx_data = tx_buffer[i];
+        }
+
+        uint8_t received = spi_transfer(spi_ptr, tx_data);
+
+        if(rx_buffer != NULL)
+        {
+        	rx_buffer[i] = received;
+        }
+    }
+}

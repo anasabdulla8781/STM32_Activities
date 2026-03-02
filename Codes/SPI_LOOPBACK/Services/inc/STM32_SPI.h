@@ -23,6 +23,9 @@
 #define SPI1_MISO	6
 #define SPI1_MOSI	7
 
+/// Macros - Common
+#define NULL	0
+
 
 typedef struct
 {
@@ -49,5 +52,6 @@ typedef struct
 /// Function declarations
 extern void spi_init_config(spi_structure* spi_ptr);
 extern uint8_t spi_transfer(spi_structure* spi_ptr , uint8_t data);
+extern void spi_transfer_buffer(spi_structure* spi_ptr, uint8_t *tx_buffer, uint8_t *rx_buffer, uint32_t length);
 
 #endif /* INC_STM32_SPI_H_ */
