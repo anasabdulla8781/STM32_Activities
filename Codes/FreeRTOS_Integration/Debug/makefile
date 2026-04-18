@@ -12,6 +12,7 @@ RM := rm -rf
 -include Third_Party/FreeRTOS/portable/MemMang/subdir.mk
 -include Third_Party/FreeRTOS/portable/GCC/ARM_CM4F/subdir.mk
 -include Third_Party/FreeRTOS/subdir.mk
+-include Third_Party/BMP280/src/subdir.mk
 -include Startup/subdir.mk
 -include Src/subdir.mk
 -include Services/src/subdir.mk

@@ -1,0 +1,10 @@
+08:17:07 **** Incremental Build of configuration Debug for project RTOS1_2_Task_with_differant_timings ****
+make -j12 all 
+arm-none-eabi-size  RTOS1_2_Task_with_differant_timings.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11624	      8	   7616	  19248	   4b30	RTOS1_2_Task_with_differant_timings.elf
+Finished building: default.size.stdout
+ 
+
+08:17:07 Build Finished. 0 errors, 0 warnings. (took 264ms)
+

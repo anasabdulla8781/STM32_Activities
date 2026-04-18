@@ -25,7 +25,7 @@
   #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
 #endif
 
-uint8_t rx_byte = 0;
+int8_t rx_byte = 0;
 
 void service_init()
 {
@@ -53,9 +53,8 @@ int main(void)
     {
     	/// This is a loopback test . So connect PA6 to PA7 for testing ( Mosi to Miso )
     	gpio_output_operations(gpioa_ptr,SPI1_NSS,SET_LOW);
-        rx_byte = spi_transfer(spi1_ptr, 0xA5);
-        rx_byte = spi_transfer(spi1_ptr, 0x60);
-        rx_byte = spi_transfer(spi1_ptr, 0x15);
+    	for(volatile int i=0;i<10;i++);
+        rx_byte = spi_transfer(spi1_ptr, 0xAF);
         gpio_output_operations(gpioa_ptr,SPI1_NSS,SET_HIGH);
     }
 }
