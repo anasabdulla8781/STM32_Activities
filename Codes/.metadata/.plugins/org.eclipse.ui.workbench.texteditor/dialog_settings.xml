@@ -3,10 +3,12 @@
 	<item key="hasShownOverlayPopupBefore" value="true"/>
 	<item key="replaceBarOpen" value="false"/>
 	<list key="searchhistory">
-		<item value="GPIO_structure"/>
-		<item value="gpiod_ptr"/>
-		<item value="ODER &amp;= ~(0X03&lt;&lt;(pin*2))"/>
-		<item value="PORTA"/>
-		<item value="MAIN"/>
+		<item value=".data"/>
+		<item value="CLOCK"/>
+		<item value="clock"/>
+		<item value="vPortSVCHandler"/>
+		<item value="svc"/>
+		<item value="xTaskCreate"/>
+		<item value="TaskFunction_t"/>
 	</list>
 </section>

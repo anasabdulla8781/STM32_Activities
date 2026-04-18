@@ -1,0 +1,4 @@
+../App/src/APP_task.c:14:6:app_task_init	1
+../App/src/APP_task.c:27:6:counting_task	1
+../App/src/APP_task.c:38:6:led_blinking	1
+../App/src/APP_task.c:48:6:vApplicationStackOverflowHook	1

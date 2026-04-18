@@ -1,0 +1,1265 @@
+
+SPI_LOOPBACK.elf:     file format elf32-littlearm
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .isr_vector   00000188  08000000  08000000  00001000  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  1 .text         00000750  08000188  08000188  00001188  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .rodata       00000000  080008d8  080008d8  00002004  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  3 .ARM.extab    00000000  080008d8  080008d8  00002004  2**0
+                  CONTENTS, READONLY
+  4 .ARM          00000000  080008d8  080008d8  00002004  2**0
+                  CONTENTS, READONLY
+  5 .preinit_array 00000000  080008d8  080008d8  00002004  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  6 .init_array   00000004  080008d8  080008d8  000018d8  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  7 .fini_array   00000004  080008dc  080008dc  000018dc  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  8 .data         00000004  20000000  080008e0  00002000  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  9 .ccmram       00000000  10000000  10000000  00002004  2**0
+                  CONTENTS
+ 10 .bss          00000020  20000004  20000004  00002004  2**2
+                  ALLOC
+ 11 ._user_heap_stack 00000604  20000024  20000024  00002004  2**0
+                  ALLOC
+ 12 .ARM.attributes 00000030  00000000  00000000  00002004  2**0
+                  CONTENTS, READONLY
+ 13 .debug_info   00001230  00000000  00000000  00002034  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 14 .debug_abbrev 00000659  00000000  00000000  00003264  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 15 .debug_aranges 00000180  00000000  00000000  000038c0  2**3
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 16 .debug_rnglists 00000103  00000000  00000000  00003a40  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 17 .debug_macro  00001928  00000000  00000000  00003b43  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 18 .debug_line   00002379  00000000  00000000  0000546b  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 19 .debug_str    0000539f  00000000  00000000  000077e4  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 20 .comment      00000043  00000000  00000000  0000cb83  2**0
+                  CONTENTS, READONLY
+ 21 .debug_frame  0000040c  00000000  00000000  0000cbc8  2**2
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 22 .debug_line_str 00000065  00000000  00000000  0000cfd4  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+
+Disassembly of section .text:
+
+08000188 <__do_global_dtors_aux>:
+ 8000188:	b510      	push	{r4, lr}
+ 800018a:	4c05      	ldr	r4, [pc, #20]	@ (80001a0 <__do_global_dtors_aux+0x18>)
+ 800018c:	7823      	ldrb	r3, [r4, #0]
+ 800018e:	b933      	cbnz	r3, 800019e <__do_global_dtors_aux+0x16>
+ 8000190:	4b04      	ldr	r3, [pc, #16]	@ (80001a4 <__do_global_dtors_aux+0x1c>)
+ 8000192:	b113      	cbz	r3, 800019a <__do_global_dtors_aux+0x12>
+ 8000194:	4804      	ldr	r0, [pc, #16]	@ (80001a8 <__do_global_dtors_aux+0x20>)
+ 8000196:	f3af 8000 	nop.w
+ 800019a:	2301      	movs	r3, #1
+ 800019c:	7023      	strb	r3, [r4, #0]
+ 800019e:	bd10      	pop	{r4, pc}
+ 80001a0:	20000004 	.word	0x20000004
+ 80001a4:	00000000 	.word	0x00000000
+ 80001a8:	080008c0 	.word	0x080008c0
+
+080001ac <frame_dummy>:
+ 80001ac:	b508      	push	{r3, lr}
+ 80001ae:	4b03      	ldr	r3, [pc, #12]	@ (80001bc <frame_dummy+0x10>)
+ 80001b0:	b11b      	cbz	r3, 80001ba <frame_dummy+0xe>
+ 80001b2:	4903      	ldr	r1, [pc, #12]	@ (80001c0 <frame_dummy+0x14>)
+ 80001b4:	4803      	ldr	r0, [pc, #12]	@ (80001c4 <frame_dummy+0x18>)
+ 80001b6:	f3af 8000 	nop.w
+ 80001ba:	bd08      	pop	{r3, pc}
+ 80001bc:	00000000 	.word	0x00000000
+ 80001c0:	20000008 	.word	0x20000008
+ 80001c4:	080008c0 	.word	0x080008c0
+
+080001c8 <fade_led_program>:
+
+
+volatile uint8_t upcounter = 1;
+
+void fade_led_program(void)
+{
+ 80001c8:	b480      	push	{r7}
+ 80001ca:	af00      	add	r7, sp, #0
+    if (upcounter == 1)    // increasing brightness
+ 80001cc:	4b1d      	ldr	r3, [pc, #116]	@ (8000244 <fade_led_program+0x7c>)
+ 80001ce:	781b      	ldrb	r3, [r3, #0]
+ 80001d0:	b2db      	uxtb	r3, r3
+ 80001d2:	2b01      	cmp	r3, #1
+ 80001d4:	d119      	bne.n	800020a <fade_led_program+0x42>
+    {
+        gpt4_ptr->TIMx_CCR1++;
+ 80001d6:	4b1c      	ldr	r3, [pc, #112]	@ (8000248 <fade_led_program+0x80>)
+ 80001d8:	6b5a      	ldr	r2, [r3, #52]	@ 0x34
+ 80001da:	3201      	adds	r2, #1
+ 80001dc:	635a      	str	r2, [r3, #52]	@ 0x34
+        gpt4_ptr->TIMx_CCR2++;
+ 80001de:	4b1a      	ldr	r3, [pc, #104]	@ (8000248 <fade_led_program+0x80>)
+ 80001e0:	6b9a      	ldr	r2, [r3, #56]	@ 0x38
+ 80001e2:	3201      	adds	r2, #1
+ 80001e4:	639a      	str	r2, [r3, #56]	@ 0x38
+        gpt4_ptr->TIMx_CCR3++;
+ 80001e6:	4b18      	ldr	r3, [pc, #96]	@ (8000248 <fade_led_program+0x80>)
+ 80001e8:	6bda      	ldr	r2, [r3, #60]	@ 0x3c
+ 80001ea:	3201      	adds	r2, #1
+ 80001ec:	63da      	str	r2, [r3, #60]	@ 0x3c
+        gpt4_ptr->TIMx_CCR4++;
+ 80001ee:	4b16      	ldr	r3, [pc, #88]	@ (8000248 <fade_led_program+0x80>)
+ 80001f0:	6c1a      	ldr	r2, [r3, #64]	@ 0x40
+ 80001f2:	3201      	adds	r2, #1
+ 80001f4:	641a      	str	r2, [r3, #64]	@ 0x40
+
+        if (gpt4_ptr->TIMx_CCR1 >= gpt4_ptr->TIMx_ARR)
+ 80001f6:	4b14      	ldr	r3, [pc, #80]	@ (8000248 <fade_led_program+0x80>)
+ 80001f8:	6b5a      	ldr	r2, [r3, #52]	@ 0x34
+ 80001fa:	4b13      	ldr	r3, [pc, #76]	@ (8000248 <fade_led_program+0x80>)
+ 80001fc:	6adb      	ldr	r3, [r3, #44]	@ 0x2c
+ 80001fe:	429a      	cmp	r2, r3
+ 8000200:	d31a      	bcc.n	8000238 <fade_led_program+0x70>
+        {
+            upcounter = 0; // switch direction at MAX
+ 8000202:	4b10      	ldr	r3, [pc, #64]	@ (8000244 <fade_led_program+0x7c>)
+ 8000204:	2200      	movs	r2, #0
+ 8000206:	701a      	strb	r2, [r3, #0]
+        if (gpt4_ptr->TIMx_CCR1 == 0)
+        {
+            upcounter = 1; // switch direction at MIN
+        }
+    }
+}
+ 8000208:	e016      	b.n	8000238 <fade_led_program+0x70>
+        gpt4_ptr->TIMx_CCR1--;
+ 800020a:	4b0f      	ldr	r3, [pc, #60]	@ (8000248 <fade_led_program+0x80>)
+ 800020c:	6b5a      	ldr	r2, [r3, #52]	@ 0x34
+ 800020e:	3a01      	subs	r2, #1
+ 8000210:	635a      	str	r2, [r3, #52]	@ 0x34
+        gpt4_ptr->TIMx_CCR2--;
+ 8000212:	4b0d      	ldr	r3, [pc, #52]	@ (8000248 <fade_led_program+0x80>)
+ 8000214:	6b9a      	ldr	r2, [r3, #56]	@ 0x38
+ 8000216:	3a01      	subs	r2, #1
+ 8000218:	639a      	str	r2, [r3, #56]	@ 0x38
+        gpt4_ptr->TIMx_CCR3--;
+ 800021a:	4b0b      	ldr	r3, [pc, #44]	@ (8000248 <fade_led_program+0x80>)
+ 800021c:	6bda      	ldr	r2, [r3, #60]	@ 0x3c
+ 800021e:	3a01      	subs	r2, #1
+ 8000220:	63da      	str	r2, [r3, #60]	@ 0x3c
+        gpt4_ptr->TIMx_CCR4--;
+ 8000222:	4b09      	ldr	r3, [pc, #36]	@ (8000248 <fade_led_program+0x80>)
+ 8000224:	6c1a      	ldr	r2, [r3, #64]	@ 0x40
+ 8000226:	3a01      	subs	r2, #1
+ 8000228:	641a      	str	r2, [r3, #64]	@ 0x40
+        if (gpt4_ptr->TIMx_CCR1 == 0)
+ 800022a:	4b07      	ldr	r3, [pc, #28]	@ (8000248 <fade_led_program+0x80>)
+ 800022c:	6b5b      	ldr	r3, [r3, #52]	@ 0x34
+ 800022e:	2b00      	cmp	r3, #0
+ 8000230:	d102      	bne.n	8000238 <fade_led_program+0x70>
+            upcounter = 1; // switch direction at MIN
+ 8000232:	4b04      	ldr	r3, [pc, #16]	@ (8000244 <fade_led_program+0x7c>)
+ 8000234:	2201      	movs	r2, #1
+ 8000236:	701a      	strb	r2, [r3, #0]
+}
+ 8000238:	bf00      	nop
+ 800023a:	46bd      	mov	sp, r7
+ 800023c:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8000240:	4770      	bx	lr
+ 8000242:	bf00      	nop
+ 8000244:	20000000 	.word	0x20000000
+ 8000248:	40000800 	.word	0x40000800
+
+0800024c <service_init>:
+#endif
+
+int8_t rx_byte = 0;
+
+void service_init()
+{
+ 800024c:	b580      	push	{r7, lr}
+ 800024e:	af00      	add	r7, sp, #0
+	/// Step 1 - Enable the clock for GPIOA . we are using port a pins for SPI1
+	gpio_clock_enable(PORTA);
+ 8000250:	2000      	movs	r0, #0
+ 8000252:	f000 fa41 	bl	80006d8 <gpio_clock_enable>
+	/// Step 2 - Enable clock for SPI1
+	spi_clock_enable(SPI1);
+ 8000256:	2000      	movs	r0, #0
+ 8000258:	f000 fa56 	bl	8000708 <spi_clock_enable>
+	/// Step 3 - Pin init configurations
+	gpio_spi1_config();
+ 800025c:	f000 f972 	bl	8000544 <gpio_spi1_config>
+	/// Step 4 - SPI init configurations
+	spi_init_config(spi1_ptr);
+ 8000260:	4802      	ldr	r0, [pc, #8]	@ (800026c <service_init+0x20>)
+ 8000262:	f000 fa7f 	bl	8000764 <spi_init_config>
+}
+ 8000266:	bf00      	nop
+ 8000268:	bd80      	pop	{r7, pc}
+ 800026a:	bf00      	nop
+ 800026c:	40013000 	.word	0x40013000
+
+08000270 <app_init>:
+
+void app_init()
+{
+ 8000270:	b480      	push	{r7}
+ 8000272:	af00      	add	r7, sp, #0
+
+}
+ 8000274:	bf00      	nop
+ 8000276:	46bd      	mov	sp, r7
+ 8000278:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 800027c:	4770      	bx	lr
+	...
+
+08000280 <main>:
+
+int main(void)
+{
+ 8000280:	b580      	push	{r7, lr}
+ 8000282:	b082      	sub	sp, #8
+ 8000284:	af00      	add	r7, sp, #0
+    service_init();
+ 8000286:	f7ff ffe1 	bl	800024c <service_init>
+    app_init();
+ 800028a:	f7ff fff1 	bl	8000270 <app_init>
+
+    while(1)
+    {
+    	/// This is a loopback test . So connect PA6 to PA7 for testing ( Mosi to Miso )
+    	gpio_output_operations(gpioa_ptr,SPI1_NSS,SET_LOW);
+ 800028e:	2200      	movs	r2, #0
+ 8000290:	2104      	movs	r1, #4
+ 8000292:	4819      	ldr	r0, [pc, #100]	@ (80002f8 <main+0x78>)
+ 8000294:	f000 f860 	bl	8000358 <gpio_output_operations>
+    	for(volatile int i=0;i<10;i++);
+ 8000298:	2300      	movs	r3, #0
+ 800029a:	607b      	str	r3, [r7, #4]
+ 800029c:	e002      	b.n	80002a4 <main+0x24>
+ 800029e:	687b      	ldr	r3, [r7, #4]
+ 80002a0:	3301      	adds	r3, #1
+ 80002a2:	607b      	str	r3, [r7, #4]
+ 80002a4:	687b      	ldr	r3, [r7, #4]
+ 80002a6:	2b09      	cmp	r3, #9
+ 80002a8:	ddf9      	ble.n	800029e <main+0x1e>
+        rx_byte = spi_transfer(spi1_ptr, 0xFF);
+ 80002aa:	21ff      	movs	r1, #255	@ 0xff
+ 80002ac:	4813      	ldr	r0, [pc, #76]	@ (80002fc <main+0x7c>)
+ 80002ae:	f000 fa90 	bl	80007d2 <spi_transfer>
+ 80002b2:	4603      	mov	r3, r0
+ 80002b4:	b25a      	sxtb	r2, r3
+ 80002b6:	4b12      	ldr	r3, [pc, #72]	@ (8000300 <main+0x80>)
+ 80002b8:	701a      	strb	r2, [r3, #0]
+        rx_byte = spi_transfer(spi1_ptr, 0xAA);
+ 80002ba:	21aa      	movs	r1, #170	@ 0xaa
+ 80002bc:	480f      	ldr	r0, [pc, #60]	@ (80002fc <main+0x7c>)
+ 80002be:	f000 fa88 	bl	80007d2 <spi_transfer>
+ 80002c2:	4603      	mov	r3, r0
+ 80002c4:	b25a      	sxtb	r2, r3
+ 80002c6:	4b0e      	ldr	r3, [pc, #56]	@ (8000300 <main+0x80>)
+ 80002c8:	701a      	strb	r2, [r3, #0]
+        rx_byte = spi_transfer(spi1_ptr, 0x55);
+ 80002ca:	2155      	movs	r1, #85	@ 0x55
+ 80002cc:	480b      	ldr	r0, [pc, #44]	@ (80002fc <main+0x7c>)
+ 80002ce:	f000 fa80 	bl	80007d2 <spi_transfer>
+ 80002d2:	4603      	mov	r3, r0
+ 80002d4:	b25a      	sxtb	r2, r3
+ 80002d6:	4b0a      	ldr	r3, [pc, #40]	@ (8000300 <main+0x80>)
+ 80002d8:	701a      	strb	r2, [r3, #0]
+        rx_byte = spi_transfer(spi1_ptr, 0x00);
+ 80002da:	2100      	movs	r1, #0
+ 80002dc:	4807      	ldr	r0, [pc, #28]	@ (80002fc <main+0x7c>)
+ 80002de:	f000 fa78 	bl	80007d2 <spi_transfer>
+ 80002e2:	4603      	mov	r3, r0
+ 80002e4:	b25a      	sxtb	r2, r3
+ 80002e6:	4b06      	ldr	r3, [pc, #24]	@ (8000300 <main+0x80>)
+ 80002e8:	701a      	strb	r2, [r3, #0]
+        gpio_output_operations(gpioa_ptr,SPI1_NSS,SET_HIGH);
+ 80002ea:	2201      	movs	r2, #1
+ 80002ec:	2104      	movs	r1, #4
+ 80002ee:	4802      	ldr	r0, [pc, #8]	@ (80002f8 <main+0x78>)
+ 80002f0:	f000 f832 	bl	8000358 <gpio_output_operations>
+    	gpio_output_operations(gpioa_ptr,SPI1_NSS,SET_LOW);
+ 80002f4:	e7cb      	b.n	800028e <main+0xe>
+ 80002f6:	bf00      	nop
+ 80002f8:	40020000 	.word	0x40020000
+ 80002fc:	40013000 	.word	0x40013000
+ 8000300:	20000020 	.word	0x20000020
+
+08000304 <gpio_pin_set_mode>:
+#include <STM32_GPIO.h>
+
+
+
+void gpio_pin_set_mode(uint8_t pin , uint8_t mode , GPIO_structure* gpio_ptr)
+{
+ 8000304:	b480      	push	{r7}
+ 8000306:	b083      	sub	sp, #12
+ 8000308:	af00      	add	r7, sp, #0
+ 800030a:	4603      	mov	r3, r0
+ 800030c:	603a      	str	r2, [r7, #0]
+ 800030e:	71fb      	strb	r3, [r7, #7]
+ 8000310:	460b      	mov	r3, r1
+ 8000312:	71bb      	strb	r3, [r7, #6]
+	if (pin > 15 || mode > 3) return;			/// Safty logic , Dont give pin number more than 15 or no other modes than than 3
+ 8000314:	79fb      	ldrb	r3, [r7, #7]
+ 8000316:	2b0f      	cmp	r3, #15
+ 8000318:	d818      	bhi.n	800034c <gpio_pin_set_mode+0x48>
+ 800031a:	79bb      	ldrb	r3, [r7, #6]
+ 800031c:	2b03      	cmp	r3, #3
+ 800031e:	d815      	bhi.n	800034c <gpio_pin_set_mode+0x48>
+
+	gpio_ptr->MODER &= ~(0X03<<(pin*2));		/// clearing the mode bits for that pin
+ 8000320:	683b      	ldr	r3, [r7, #0]
+ 8000322:	681b      	ldr	r3, [r3, #0]
+ 8000324:	79fa      	ldrb	r2, [r7, #7]
+ 8000326:	0052      	lsls	r2, r2, #1
+ 8000328:	2103      	movs	r1, #3
+ 800032a:	fa01 f202 	lsl.w	r2, r1, r2
+ 800032e:	43d2      	mvns	r2, r2
+ 8000330:	401a      	ands	r2, r3
+ 8000332:	683b      	ldr	r3, [r7, #0]
+ 8000334:	601a      	str	r2, [r3, #0]
+	gpio_ptr->MODER |= (mode << (pin*2));		/// Setting the mode bits for different kind of modes ( Input , Output , Alternate function , Analog input )
+ 8000336:	683b      	ldr	r3, [r7, #0]
+ 8000338:	681b      	ldr	r3, [r3, #0]
+ 800033a:	79b9      	ldrb	r1, [r7, #6]
+ 800033c:	79fa      	ldrb	r2, [r7, #7]
+ 800033e:	0052      	lsls	r2, r2, #1
+ 8000340:	fa01 f202 	lsl.w	r2, r1, r2
+ 8000344:	431a      	orrs	r2, r3
+ 8000346:	683b      	ldr	r3, [r7, #0]
+ 8000348:	601a      	str	r2, [r3, #0]
+ 800034a:	e000      	b.n	800034e <gpio_pin_set_mode+0x4a>
+	if (pin > 15 || mode > 3) return;			/// Safty logic , Dont give pin number more than 15 or no other modes than than 3
+ 800034c:	bf00      	nop
+}
+ 800034e:	370c      	adds	r7, #12
+ 8000350:	46bd      	mov	sp, r7
+ 8000352:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8000356:	4770      	bx	lr
+
+08000358 <gpio_output_operations>:
+
+
+void gpio_output_operations (GPIO_structure* gpio_ptr , uint8_t pin , uint8_t state)
+{
+ 8000358:	b480      	push	{r7}
+ 800035a:	b083      	sub	sp, #12
+ 800035c:	af00      	add	r7, sp, #0
+ 800035e:	6078      	str	r0, [r7, #4]
+ 8000360:	460b      	mov	r3, r1
+ 8000362:	70fb      	strb	r3, [r7, #3]
+ 8000364:	4613      	mov	r3, r2
+ 8000366:	70bb      	strb	r3, [r7, #2]
+	if(state == SET_TOGGLE)
+ 8000368:	78bb      	ldrb	r3, [r7, #2]
+ 800036a:	2b02      	cmp	r3, #2
+ 800036c:	d109      	bne.n	8000382 <gpio_output_operations+0x2a>
+	{
+		gpio_ptr->ODR ^= (1<<pin);					/// Toggle the pin
+ 800036e:	687b      	ldr	r3, [r7, #4]
+ 8000370:	695b      	ldr	r3, [r3, #20]
+ 8000372:	78fa      	ldrb	r2, [r7, #3]
+ 8000374:	2101      	movs	r1, #1
+ 8000376:	fa01 f202 	lsl.w	r2, r1, r2
+ 800037a:	405a      	eors	r2, r3
+ 800037c:	687b      	ldr	r3, [r7, #4]
+ 800037e:	615a      	str	r2, [r3, #20]
+	}
+	else if(state == SET_LOW)
+	{
+		gpio_ptr->ODR &= ~(1<<pin);					/// Drive the pin to Low
+	}
+}
+ 8000380:	e019      	b.n	80003b6 <gpio_output_operations+0x5e>
+	else if (state == SET_HIGH)
+ 8000382:	78bb      	ldrb	r3, [r7, #2]
+ 8000384:	2b01      	cmp	r3, #1
+ 8000386:	d109      	bne.n	800039c <gpio_output_operations+0x44>
+		gpio_ptr->ODR |= (1<<pin);					/// Drive the pin to High
+ 8000388:	687b      	ldr	r3, [r7, #4]
+ 800038a:	695b      	ldr	r3, [r3, #20]
+ 800038c:	78fa      	ldrb	r2, [r7, #3]
+ 800038e:	2101      	movs	r1, #1
+ 8000390:	fa01 f202 	lsl.w	r2, r1, r2
+ 8000394:	431a      	orrs	r2, r3
+ 8000396:	687b      	ldr	r3, [r7, #4]
+ 8000398:	615a      	str	r2, [r3, #20]
+}
+ 800039a:	e00c      	b.n	80003b6 <gpio_output_operations+0x5e>
+	else if(state == SET_LOW)
+ 800039c:	78bb      	ldrb	r3, [r7, #2]
+ 800039e:	2b00      	cmp	r3, #0
+ 80003a0:	d109      	bne.n	80003b6 <gpio_output_operations+0x5e>
+		gpio_ptr->ODR &= ~(1<<pin);					/// Drive the pin to Low
+ 80003a2:	687b      	ldr	r3, [r7, #4]
+ 80003a4:	695b      	ldr	r3, [r3, #20]
+ 80003a6:	78fa      	ldrb	r2, [r7, #3]
+ 80003a8:	2101      	movs	r1, #1
+ 80003aa:	fa01 f202 	lsl.w	r2, r1, r2
+ 80003ae:	43d2      	mvns	r2, r2
+ 80003b0:	401a      	ands	r2, r3
+ 80003b2:	687b      	ldr	r3, [r7, #4]
+ 80003b4:	615a      	str	r2, [r3, #20]
+}
+ 80003b6:	bf00      	nop
+ 80003b8:	370c      	adds	r7, #12
+ 80003ba:	46bd      	mov	sp, r7
+ 80003bc:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 80003c0:	4770      	bx	lr
+
+080003c2 <gpio_set_alternate_function>:
+
+void gpio_set_alternate_function(GPIO_structure* gpio_ptr , uint8_t pin_number, uint8_t af_number)
+{
+ 80003c2:	b480      	push	{r7}
+ 80003c4:	b083      	sub	sp, #12
+ 80003c6:	af00      	add	r7, sp, #0
+ 80003c8:	6078      	str	r0, [r7, #4]
+ 80003ca:	460b      	mov	r3, r1
+ 80003cc:	70fb      	strb	r3, [r7, #3]
+ 80003ce:	4613      	mov	r3, r2
+ 80003d0:	70bb      	strb	r3, [r7, #2]
+	if (pin_number > 7 && pin_number <16)
+ 80003d2:	78fb      	ldrb	r3, [r7, #3]
+ 80003d4:	2b07      	cmp	r3, #7
+ 80003d6:	d91a      	bls.n	800040e <gpio_set_alternate_function+0x4c>
+ 80003d8:	78fb      	ldrb	r3, [r7, #3]
+ 80003da:	2b0f      	cmp	r3, #15
+ 80003dc:	d817      	bhi.n	800040e <gpio_set_alternate_function+0x4c>
+	{
+		gpio_ptr->AFRH &= ~ ( 0x0F <<((pin_number - 8)*4));					/// Clearing the alternate functions bits
+ 80003de:	687b      	ldr	r3, [r7, #4]
+ 80003e0:	6a5b      	ldr	r3, [r3, #36]	@ 0x24
+ 80003e2:	78fa      	ldrb	r2, [r7, #3]
+ 80003e4:	3a08      	subs	r2, #8
+ 80003e6:	0092      	lsls	r2, r2, #2
+ 80003e8:	210f      	movs	r1, #15
+ 80003ea:	fa01 f202 	lsl.w	r2, r1, r2
+ 80003ee:	43d2      	mvns	r2, r2
+ 80003f0:	401a      	ands	r2, r3
+ 80003f2:	687b      	ldr	r3, [r7, #4]
+ 80003f4:	625a      	str	r2, [r3, #36]	@ 0x24
+		gpio_ptr->AFRH |=   ( af_number <<((pin_number - 8)*4));
+ 80003f6:	687b      	ldr	r3, [r7, #4]
+ 80003f8:	6a5b      	ldr	r3, [r3, #36]	@ 0x24
+ 80003fa:	78b9      	ldrb	r1, [r7, #2]
+ 80003fc:	78fa      	ldrb	r2, [r7, #3]
+ 80003fe:	3a08      	subs	r2, #8
+ 8000400:	0092      	lsls	r2, r2, #2
+ 8000402:	fa01 f202 	lsl.w	r2, r1, r2
+ 8000406:	431a      	orrs	r2, r3
+ 8000408:	687b      	ldr	r3, [r7, #4]
+ 800040a:	625a      	str	r2, [r3, #36]	@ 0x24
+	else if (pin_number >= 0  && pin_number <8)
+	{
+		gpio_ptr->AFRL &= ~ ( 0x0F <<(pin_number*4));						/// Clearing the alternate functions bits
+		gpio_ptr->AFRL |=   ( af_number  <<(pin_number*4));
+	}
+}
+ 800040c:	e017      	b.n	800043e <gpio_set_alternate_function+0x7c>
+	else if (pin_number >= 0  && pin_number <8)
+ 800040e:	78fb      	ldrb	r3, [r7, #3]
+ 8000410:	2b07      	cmp	r3, #7
+ 8000412:	d814      	bhi.n	800043e <gpio_set_alternate_function+0x7c>
+		gpio_ptr->AFRL &= ~ ( 0x0F <<(pin_number*4));						/// Clearing the alternate functions bits
+ 8000414:	687b      	ldr	r3, [r7, #4]
+ 8000416:	6a1b      	ldr	r3, [r3, #32]
+ 8000418:	78fa      	ldrb	r2, [r7, #3]
+ 800041a:	0092      	lsls	r2, r2, #2
+ 800041c:	210f      	movs	r1, #15
+ 800041e:	fa01 f202 	lsl.w	r2, r1, r2
+ 8000422:	43d2      	mvns	r2, r2
+ 8000424:	401a      	ands	r2, r3
+ 8000426:	687b      	ldr	r3, [r7, #4]
+ 8000428:	621a      	str	r2, [r3, #32]
+		gpio_ptr->AFRL |=   ( af_number  <<(pin_number*4));
+ 800042a:	687b      	ldr	r3, [r7, #4]
+ 800042c:	6a1b      	ldr	r3, [r3, #32]
+ 800042e:	78b9      	ldrb	r1, [r7, #2]
+ 8000430:	78fa      	ldrb	r2, [r7, #3]
+ 8000432:	0092      	lsls	r2, r2, #2
+ 8000434:	fa01 f202 	lsl.w	r2, r1, r2
+ 8000438:	431a      	orrs	r2, r3
+ 800043a:	687b      	ldr	r3, [r7, #4]
+ 800043c:	621a      	str	r2, [r3, #32]
+}
+ 800043e:	bf00      	nop
+ 8000440:	370c      	adds	r7, #12
+ 8000442:	46bd      	mov	sp, r7
+ 8000444:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8000448:	4770      	bx	lr
+
+0800044a <gpio_set_output_type>:
+
+void gpio_set_output_type(GPIO_structure* gpio_ptr , uint8_t pin_number , uint8_t output_type)
+{
+ 800044a:	b480      	push	{r7}
+ 800044c:	b083      	sub	sp, #12
+ 800044e:	af00      	add	r7, sp, #0
+ 8000450:	6078      	str	r0, [r7, #4]
+ 8000452:	460b      	mov	r3, r1
+ 8000454:	70fb      	strb	r3, [r7, #3]
+ 8000456:	4613      	mov	r3, r2
+ 8000458:	70bb      	strb	r3, [r7, #2]
+	if (pin_number>15 || output_type > 1)	return;						/// we need to check only upto 15 bits
+ 800045a:	78fb      	ldrb	r3, [r7, #3]
+ 800045c:	2b0f      	cmp	r3, #15
+ 800045e:	d816      	bhi.n	800048e <gpio_set_output_type+0x44>
+ 8000460:	78bb      	ldrb	r3, [r7, #2]
+ 8000462:	2b01      	cmp	r3, #1
+ 8000464:	d813      	bhi.n	800048e <gpio_set_output_type+0x44>
+	gpio_ptr->OTYPER &= ~(1 << pin_number);								/// Cleared the particular pin we want to set the output state
+ 8000466:	687b      	ldr	r3, [r7, #4]
+ 8000468:	685b      	ldr	r3, [r3, #4]
+ 800046a:	78fa      	ldrb	r2, [r7, #3]
+ 800046c:	2101      	movs	r1, #1
+ 800046e:	fa01 f202 	lsl.w	r2, r1, r2
+ 8000472:	43d2      	mvns	r2, r2
+ 8000474:	401a      	ands	r2, r3
+ 8000476:	687b      	ldr	r3, [r7, #4]
+ 8000478:	605a      	str	r2, [r3, #4]
+	gpio_ptr->OTYPER |= (output_type << pin_number);					/// We have Pushpull and open drain states
+ 800047a:	687b      	ldr	r3, [r7, #4]
+ 800047c:	685b      	ldr	r3, [r3, #4]
+ 800047e:	78b9      	ldrb	r1, [r7, #2]
+ 8000480:	78fa      	ldrb	r2, [r7, #3]
+ 8000482:	fa01 f202 	lsl.w	r2, r1, r2
+ 8000486:	431a      	orrs	r2, r3
+ 8000488:	687b      	ldr	r3, [r7, #4]
+ 800048a:	605a      	str	r2, [r3, #4]
+ 800048c:	e000      	b.n	8000490 <gpio_set_output_type+0x46>
+	if (pin_number>15 || output_type > 1)	return;						/// we need to check only upto 15 bits
+ 800048e:	bf00      	nop
+}
+ 8000490:	370c      	adds	r7, #12
+ 8000492:	46bd      	mov	sp, r7
+ 8000494:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8000498:	4770      	bx	lr
+
+0800049a <gpio_set_output_speed>:
+
+void gpio_set_output_speed(GPIO_structure* gpio_ptr , uint8_t pin_number , uint8_t output_speed)
+{
+ 800049a:	b480      	push	{r7}
+ 800049c:	b083      	sub	sp, #12
+ 800049e:	af00      	add	r7, sp, #0
+ 80004a0:	6078      	str	r0, [r7, #4]
+ 80004a2:	460b      	mov	r3, r1
+ 80004a4:	70fb      	strb	r3, [r7, #3]
+ 80004a6:	4613      	mov	r3, r2
+ 80004a8:	70bb      	strb	r3, [r7, #2]
+	if (pin_number>15 || output_speed > 3)	return;						/// Safety check - Pin shouldnt be more than 15 and we have maximum 4 configured speeds
+ 80004aa:	78fb      	ldrb	r3, [r7, #3]
+ 80004ac:	2b0f      	cmp	r3, #15
+ 80004ae:	d818      	bhi.n	80004e2 <gpio_set_output_speed+0x48>
+ 80004b0:	78bb      	ldrb	r3, [r7, #2]
+ 80004b2:	2b03      	cmp	r3, #3
+ 80004b4:	d815      	bhi.n	80004e2 <gpio_set_output_speed+0x48>
+	gpio_ptr->OSPEEDR &= ~ (0x03 << (pin_number*2));					/// Clearing the particular pins needed to set the speed
+ 80004b6:	687b      	ldr	r3, [r7, #4]
+ 80004b8:	689b      	ldr	r3, [r3, #8]
+ 80004ba:	78fa      	ldrb	r2, [r7, #3]
+ 80004bc:	0052      	lsls	r2, r2, #1
+ 80004be:	2103      	movs	r1, #3
+ 80004c0:	fa01 f202 	lsl.w	r2, r1, r2
+ 80004c4:	43d2      	mvns	r2, r2
+ 80004c6:	401a      	ands	r2, r3
+ 80004c8:	687b      	ldr	r3, [r7, #4]
+ 80004ca:	609a      	str	r2, [r3, #8]
+	gpio_ptr->OSPEEDR |= ( output_speed << (pin_number*2));				/// We set the output speed
+ 80004cc:	687b      	ldr	r3, [r7, #4]
+ 80004ce:	689b      	ldr	r3, [r3, #8]
+ 80004d0:	78b9      	ldrb	r1, [r7, #2]
+ 80004d2:	78fa      	ldrb	r2, [r7, #3]
+ 80004d4:	0052      	lsls	r2, r2, #1
+ 80004d6:	fa01 f202 	lsl.w	r2, r1, r2
+ 80004da:	431a      	orrs	r2, r3
+ 80004dc:	687b      	ldr	r3, [r7, #4]
+ 80004de:	609a      	str	r2, [r3, #8]
+ 80004e0:	e000      	b.n	80004e4 <gpio_set_output_speed+0x4a>
+	if (pin_number>15 || output_speed > 3)	return;						/// Safety check - Pin shouldnt be more than 15 and we have maximum 4 configured speeds
+ 80004e2:	bf00      	nop
+}
+ 80004e4:	370c      	adds	r7, #12
+ 80004e6:	46bd      	mov	sp, r7
+ 80004e8:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 80004ec:	4770      	bx	lr
+
+080004ee <gpio_set_pullup_pulldown>:
+
+void gpio_set_pullup_pulldown(GPIO_structure* gpio_ptr , uint8_t pin_number , uint8_t pullup_down_value)
+{
+ 80004ee:	b480      	push	{r7}
+ 80004f0:	b083      	sub	sp, #12
+ 80004f2:	af00      	add	r7, sp, #0
+ 80004f4:	6078      	str	r0, [r7, #4]
+ 80004f6:	460b      	mov	r3, r1
+ 80004f8:	70fb      	strb	r3, [r7, #3]
+ 80004fa:	4613      	mov	r3, r2
+ 80004fc:	70bb      	strb	r3, [r7, #2]
+	if (pin_number>15 || pullup_down_value > 3)	return;						/// Safety check - Pin shouldnt be more than 15 and we have maximum 4 configured pull up or downs
+ 80004fe:	78fb      	ldrb	r3, [r7, #3]
+ 8000500:	2b0f      	cmp	r3, #15
+ 8000502:	d818      	bhi.n	8000536 <gpio_set_pullup_pulldown+0x48>
+ 8000504:	78bb      	ldrb	r3, [r7, #2]
+ 8000506:	2b03      	cmp	r3, #3
+ 8000508:	d815      	bhi.n	8000536 <gpio_set_pullup_pulldown+0x48>
+	gpio_ptr->PUPDR &= ~ (0x03 << (pin_number*2));							/// Clearing the particular pins needed to set the pull up or down
+ 800050a:	687b      	ldr	r3, [r7, #4]
+ 800050c:	68db      	ldr	r3, [r3, #12]
+ 800050e:	78fa      	ldrb	r2, [r7, #3]
+ 8000510:	0052      	lsls	r2, r2, #1
+ 8000512:	2103      	movs	r1, #3
+ 8000514:	fa01 f202 	lsl.w	r2, r1, r2
+ 8000518:	43d2      	mvns	r2, r2
+ 800051a:	401a      	ands	r2, r3
+ 800051c:	687b      	ldr	r3, [r7, #4]
+ 800051e:	60da      	str	r2, [r3, #12]
+	gpio_ptr->PUPDR |= ( pullup_down_value << (pin_number*2));				/// We set the output speed
+ 8000520:	687b      	ldr	r3, [r7, #4]
+ 8000522:	68db      	ldr	r3, [r3, #12]
+ 8000524:	78b9      	ldrb	r1, [r7, #2]
+ 8000526:	78fa      	ldrb	r2, [r7, #3]
+ 8000528:	0052      	lsls	r2, r2, #1
+ 800052a:	fa01 f202 	lsl.w	r2, r1, r2
+ 800052e:	431a      	orrs	r2, r3
+ 8000530:	687b      	ldr	r3, [r7, #4]
+ 8000532:	60da      	str	r2, [r3, #12]
+ 8000534:	e000      	b.n	8000538 <gpio_set_pullup_pulldown+0x4a>
+	if (pin_number>15 || pullup_down_value > 3)	return;						/// Safety check - Pin shouldnt be more than 15 and we have maximum 4 configured pull up or downs
+ 8000536:	bf00      	nop
+}
+ 8000538:	370c      	adds	r7, #12
+ 800053a:	46bd      	mov	sp, r7
+ 800053c:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8000540:	4770      	bx	lr
+	...
+
+08000544 <gpio_spi1_config>:
+
+void gpio_spi1_config(void)
+{
+ 8000544:	b580      	push	{r7, lr}
+ 8000546:	af00      	add	r7, sp, #0
+	/// Step 1 - Setting the pins in alternate function mode
+	gpio_pin_set_mode(SPI1_NSS,PIN_OUTPUT,gpioa_ptr);								/// PA4 Set in Output mode for SPI1 NSS (Chip select pin , we need control over it)
+ 8000548:	4a2d      	ldr	r2, [pc, #180]	@ (8000600 <gpio_spi1_config+0xbc>)
+ 800054a:	2101      	movs	r1, #1
+ 800054c:	2004      	movs	r0, #4
+ 800054e:	f7ff fed9 	bl	8000304 <gpio_pin_set_mode>
+	gpio_pin_set_mode(SPI1_SCLK,PIN_ALTERNATE_FUNCTION,gpioa_ptr);					/// PA5 Set in alternate function mode for SPI1 SCLK
+ 8000552:	4a2b      	ldr	r2, [pc, #172]	@ (8000600 <gpio_spi1_config+0xbc>)
+ 8000554:	2102      	movs	r1, #2
+ 8000556:	2005      	movs	r0, #5
+ 8000558:	f7ff fed4 	bl	8000304 <gpio_pin_set_mode>
+	gpio_pin_set_mode(SPI1_MISO,PIN_ALTERNATE_FUNCTION,gpioa_ptr);					/// PA6 Set in alternate function mode for SPI1 MISO
+ 800055c:	4a28      	ldr	r2, [pc, #160]	@ (8000600 <gpio_spi1_config+0xbc>)
+ 800055e:	2102      	movs	r1, #2
+ 8000560:	2006      	movs	r0, #6
+ 8000562:	f7ff fecf 	bl	8000304 <gpio_pin_set_mode>
+	gpio_pin_set_mode(SPI1_MOSI,PIN_ALTERNATE_FUNCTION,gpioa_ptr);					/// PA7 Set in alternate function mode for SPI1 MOSI
+ 8000566:	4a26      	ldr	r2, [pc, #152]	@ (8000600 <gpio_spi1_config+0xbc>)
+ 8000568:	2102      	movs	r1, #2
+ 800056a:	2007      	movs	r0, #7
+ 800056c:	f7ff feca 	bl	8000304 <gpio_pin_set_mode>
+	/// Step 2 - Setting these pins to AF5
+	gpio_set_alternate_function(gpioa_ptr,SPI1_SCLK,AF5);							/// PA5 - AF5
+ 8000570:	2205      	movs	r2, #5
+ 8000572:	2105      	movs	r1, #5
+ 8000574:	4822      	ldr	r0, [pc, #136]	@ (8000600 <gpio_spi1_config+0xbc>)
+ 8000576:	f7ff ff24 	bl	80003c2 <gpio_set_alternate_function>
+	gpio_set_alternate_function(gpioa_ptr,SPI1_MISO,AF5);							/// PA6 - AF5
+ 800057a:	2205      	movs	r2, #5
+ 800057c:	2106      	movs	r1, #6
+ 800057e:	4820      	ldr	r0, [pc, #128]	@ (8000600 <gpio_spi1_config+0xbc>)
+ 8000580:	f7ff ff1f 	bl	80003c2 <gpio_set_alternate_function>
+	gpio_set_alternate_function(gpioa_ptr,SPI1_MOSI,AF5);							/// PA7 - AF5
+ 8000584:	2205      	movs	r2, #5
+ 8000586:	2107      	movs	r1, #7
+ 8000588:	481d      	ldr	r0, [pc, #116]	@ (8000600 <gpio_spi1_config+0xbc>)
+ 800058a:	f7ff ff1a 	bl	80003c2 <gpio_set_alternate_function>
+	/// Step 3 - Setting the Output types as pushpull - SPI needs it (Miso is input , leave it)
+	gpio_set_output_type(gpioa_ptr,SPI1_NSS,OUTPUT_PUSH_PULL);
+ 800058e:	2200      	movs	r2, #0
+ 8000590:	2104      	movs	r1, #4
+ 8000592:	481b      	ldr	r0, [pc, #108]	@ (8000600 <gpio_spi1_config+0xbc>)
+ 8000594:	f7ff ff59 	bl	800044a <gpio_set_output_type>
+	gpio_set_output_type(gpioa_ptr,SPI1_SCLK,OUTPUT_PUSH_PULL);
+ 8000598:	2200      	movs	r2, #0
+ 800059a:	2105      	movs	r1, #5
+ 800059c:	4818      	ldr	r0, [pc, #96]	@ (8000600 <gpio_spi1_config+0xbc>)
+ 800059e:	f7ff ff54 	bl	800044a <gpio_set_output_type>
+	gpio_set_output_type(gpioa_ptr,SPI1_MOSI,OUTPUT_PUSH_PULL);
+ 80005a2:	2200      	movs	r2, #0
+ 80005a4:	2107      	movs	r1, #7
+ 80005a6:	4816      	ldr	r0, [pc, #88]	@ (8000600 <gpio_spi1_config+0xbc>)
+ 80005a8:	f7ff ff4f 	bl	800044a <gpio_set_output_type>
+	/// Step 4 - Setting the output pin speeds
+	gpio_set_output_speed(gpioa_ptr,SPI1_NSS,VERY_HIGH_SPEED);
+ 80005ac:	2203      	movs	r2, #3
+ 80005ae:	2104      	movs	r1, #4
+ 80005b0:	4813      	ldr	r0, [pc, #76]	@ (8000600 <gpio_spi1_config+0xbc>)
+ 80005b2:	f7ff ff72 	bl	800049a <gpio_set_output_speed>
+	gpio_set_output_speed(gpioa_ptr,SPI1_SCLK,VERY_HIGH_SPEED);
+ 80005b6:	2203      	movs	r2, #3
+ 80005b8:	2105      	movs	r1, #5
+ 80005ba:	4811      	ldr	r0, [pc, #68]	@ (8000600 <gpio_spi1_config+0xbc>)
+ 80005bc:	f7ff ff6d 	bl	800049a <gpio_set_output_speed>
+	gpio_set_output_speed(gpioa_ptr,SPI1_MOSI,VERY_HIGH_SPEED);
+ 80005c0:	2203      	movs	r2, #3
+ 80005c2:	2107      	movs	r1, #7
+ 80005c4:	480e      	ldr	r0, [pc, #56]	@ (8000600 <gpio_spi1_config+0xbc>)
+ 80005c6:	f7ff ff68 	bl	800049a <gpio_set_output_speed>
+	/// Step 5 - Configure pull-up/pull-down (none required for SPI)
+	gpio_set_pullup_pulldown(gpioa_ptr,SPI1_NSS,NO_PULLUP_PULLDOWN);
+ 80005ca:	2200      	movs	r2, #0
+ 80005cc:	2104      	movs	r1, #4
+ 80005ce:	480c      	ldr	r0, [pc, #48]	@ (8000600 <gpio_spi1_config+0xbc>)
+ 80005d0:	f7ff ff8d 	bl	80004ee <gpio_set_pullup_pulldown>
+	gpio_set_pullup_pulldown(gpioa_ptr,SPI1_SCLK,NO_PULLUP_PULLDOWN);
+ 80005d4:	2200      	movs	r2, #0
+ 80005d6:	2105      	movs	r1, #5
+ 80005d8:	4809      	ldr	r0, [pc, #36]	@ (8000600 <gpio_spi1_config+0xbc>)
+ 80005da:	f7ff ff88 	bl	80004ee <gpio_set_pullup_pulldown>
+	gpio_set_pullup_pulldown(gpioa_ptr,SPI1_MOSI,NO_PULLUP_PULLDOWN);
+ 80005de:	2200      	movs	r2, #0
+ 80005e0:	2107      	movs	r1, #7
+ 80005e2:	4807      	ldr	r0, [pc, #28]	@ (8000600 <gpio_spi1_config+0xbc>)
+ 80005e4:	f7ff ff83 	bl	80004ee <gpio_set_pullup_pulldown>
+	gpio_set_pullup_pulldown(gpioa_ptr, SPI1_MISO, PULLUP);
+ 80005e8:	2201      	movs	r2, #1
+ 80005ea:	2106      	movs	r1, #6
+ 80005ec:	4804      	ldr	r0, [pc, #16]	@ (8000600 <gpio_spi1_config+0xbc>)
+ 80005ee:	f7ff ff7e 	bl	80004ee <gpio_set_pullup_pulldown>
+	/// Step 6 - Making the default Cs pin high
+	gpio_output_operations(gpioa_ptr,SPI1_NSS,SET_HIGH);
+ 80005f2:	2201      	movs	r2, #1
+ 80005f4:	2104      	movs	r1, #4
+ 80005f6:	4802      	ldr	r0, [pc, #8]	@ (8000600 <gpio_spi1_config+0xbc>)
+ 80005f8:	f7ff feae 	bl	8000358 <gpio_output_operations>
+}
+ 80005fc:	bf00      	nop
+ 80005fe:	bd80      	pop	{r7, pc}
+ 8000600:	40020000 	.word	0x40020000
+
+08000604 <TIM2_IRQHandler>:
+
+	}
+}
+
+void TIM2_IRQHandler(void)
+{
+ 8000604:	b580      	push	{r7, lr}
+ 8000606:	af00      	add	r7, sp, #0
+	if (gpt2_ptr->TIMx_SR & 1U) 			/// Last bit in the SR is 1 indicating there is an interrupt happened
+ 8000608:	f04f 4380 	mov.w	r3, #1073741824	@ 0x40000000
+ 800060c:	691b      	ldr	r3, [r3, #16]
+ 800060e:	f003 0301 	and.w	r3, r3, #1
+ 8000612:	2b00      	cmp	r3, #0
+ 8000614:	d042      	beq.n	800069c <TIM2_IRQHandler+0x98>
+	{
+		gpt2_ptr->TIMx_SR &= ~(1U << 0);
+ 8000616:	f04f 4380 	mov.w	r3, #1073741824	@ 0x40000000
+ 800061a:	691b      	ldr	r3, [r3, #16]
+ 800061c:	f04f 4280 	mov.w	r2, #1073741824	@ 0x40000000
+ 8000620:	f023 0301 	bic.w	r3, r3, #1
+ 8000624:	6113      	str	r3, [r2, #16]
+		gpio_output_operations(gpiod_ptr,GREEN_LED_PIN,SET_TOGGLE);
+ 8000626:	2202      	movs	r2, #2
+ 8000628:	210c      	movs	r1, #12
+ 800062a:	481d      	ldr	r0, [pc, #116]	@ (80006a0 <TIM2_IRQHandler+0x9c>)
+ 800062c:	f7ff fe94 	bl	8000358 <gpio_output_operations>
+
+		four_s_delay++;
+ 8000630:	4b1c      	ldr	r3, [pc, #112]	@ (80006a4 <TIM2_IRQHandler+0xa0>)
+ 8000632:	781b      	ldrb	r3, [r3, #0]
+ 8000634:	3301      	adds	r3, #1
+ 8000636:	b2da      	uxtb	r2, r3
+ 8000638:	4b1a      	ldr	r3, [pc, #104]	@ (80006a4 <TIM2_IRQHandler+0xa0>)
+ 800063a:	701a      	strb	r2, [r3, #0]
+		eight_s_delay++;
+ 800063c:	4b1a      	ldr	r3, [pc, #104]	@ (80006a8 <TIM2_IRQHandler+0xa4>)
+ 800063e:	781b      	ldrb	r3, [r3, #0]
+ 8000640:	3301      	adds	r3, #1
+ 8000642:	b2da      	uxtb	r2, r3
+ 8000644:	4b18      	ldr	r3, [pc, #96]	@ (80006a8 <TIM2_IRQHandler+0xa4>)
+ 8000646:	701a      	strb	r2, [r3, #0]
+		twelve_s_delay++;
+ 8000648:	4b18      	ldr	r3, [pc, #96]	@ (80006ac <TIM2_IRQHandler+0xa8>)
+ 800064a:	781b      	ldrb	r3, [r3, #0]
+ 800064c:	3301      	adds	r3, #1
+ 800064e:	b2da      	uxtb	r2, r3
+ 8000650:	4b16      	ldr	r3, [pc, #88]	@ (80006ac <TIM2_IRQHandler+0xa8>)
+ 8000652:	701a      	strb	r2, [r3, #0]
+
+		if(four_s_delay == 4)
+ 8000654:	4b13      	ldr	r3, [pc, #76]	@ (80006a4 <TIM2_IRQHandler+0xa0>)
+ 8000656:	781b      	ldrb	r3, [r3, #0]
+ 8000658:	2b04      	cmp	r3, #4
+ 800065a:	d107      	bne.n	800066c <TIM2_IRQHandler+0x68>
+		{
+			gpio_output_operations(gpiod_ptr,BLUE_LED_PIN,SET_HIGH);
+ 800065c:	2201      	movs	r2, #1
+ 800065e:	210f      	movs	r1, #15
+ 8000660:	480f      	ldr	r0, [pc, #60]	@ (80006a0 <TIM2_IRQHandler+0x9c>)
+ 8000662:	f7ff fe79 	bl	8000358 <gpio_output_operations>
+			four_s_delay = 0 ;
+ 8000666:	4b0f      	ldr	r3, [pc, #60]	@ (80006a4 <TIM2_IRQHandler+0xa0>)
+ 8000668:	2200      	movs	r2, #0
+ 800066a:	701a      	strb	r2, [r3, #0]
+		}
+
+		if(eight_s_delay == 8)
+ 800066c:	4b0e      	ldr	r3, [pc, #56]	@ (80006a8 <TIM2_IRQHandler+0xa4>)
+ 800066e:	781b      	ldrb	r3, [r3, #0]
+ 8000670:	2b08      	cmp	r3, #8
+ 8000672:	d107      	bne.n	8000684 <TIM2_IRQHandler+0x80>
+		{
+			gpio_output_operations(gpiod_ptr,RED_LED_PIN,SET_TOGGLE);
+ 8000674:	2202      	movs	r2, #2
+ 8000676:	210e      	movs	r1, #14
+ 8000678:	4809      	ldr	r0, [pc, #36]	@ (80006a0 <TIM2_IRQHandler+0x9c>)
+ 800067a:	f7ff fe6d 	bl	8000358 <gpio_output_operations>
+			eight_s_delay = 0 ;
+ 800067e:	4b0a      	ldr	r3, [pc, #40]	@ (80006a8 <TIM2_IRQHandler+0xa4>)
+ 8000680:	2200      	movs	r2, #0
+ 8000682:	701a      	strb	r2, [r3, #0]
+		}
+
+		if(twelve_s_delay == 12)
+ 8000684:	4b09      	ldr	r3, [pc, #36]	@ (80006ac <TIM2_IRQHandler+0xa8>)
+ 8000686:	781b      	ldrb	r3, [r3, #0]
+ 8000688:	2b0c      	cmp	r3, #12
+ 800068a:	d107      	bne.n	800069c <TIM2_IRQHandler+0x98>
+		{
+			gpio_output_operations(gpiod_ptr,ORANGE_LED_PIN,SET_TOGGLE);
+ 800068c:	2202      	movs	r2, #2
+ 800068e:	210d      	movs	r1, #13
+ 8000690:	4803      	ldr	r0, [pc, #12]	@ (80006a0 <TIM2_IRQHandler+0x9c>)
+ 8000692:	f7ff fe61 	bl	8000358 <gpio_output_operations>
+			twelve_s_delay = 0 ;
+ 8000696:	4b05      	ldr	r3, [pc, #20]	@ (80006ac <TIM2_IRQHandler+0xa8>)
+ 8000698:	2200      	movs	r2, #0
+ 800069a:	701a      	strb	r2, [r3, #0]
+		}
+	}
+}
+ 800069c:	bf00      	nop
+ 800069e:	bd80      	pop	{r7, pc}
+ 80006a0:	40020c00 	.word	0x40020c00
+ 80006a4:	20000021 	.word	0x20000021
+ 80006a8:	20000022 	.word	0x20000022
+ 80006ac:	20000023 	.word	0x20000023
+
+080006b0 <TIM4_IRQHandler>:
+
+void TIM4_IRQHandler(void)
+{
+ 80006b0:	b580      	push	{r7, lr}
+ 80006b2:	af00      	add	r7, sp, #0
+	if(gpt4_ptr->TIMx_SR &1u)
+ 80006b4:	4b07      	ldr	r3, [pc, #28]	@ (80006d4 <TIM4_IRQHandler+0x24>)
+ 80006b6:	691b      	ldr	r3, [r3, #16]
+ 80006b8:	f003 0301 	and.w	r3, r3, #1
+ 80006bc:	2b00      	cmp	r3, #0
+ 80006be:	d007      	beq.n	80006d0 <TIM4_IRQHandler+0x20>
+	{
+		gpt4_ptr->TIMx_SR &= ~(1U << 0);
+ 80006c0:	4b04      	ldr	r3, [pc, #16]	@ (80006d4 <TIM4_IRQHandler+0x24>)
+ 80006c2:	691b      	ldr	r3, [r3, #16]
+ 80006c4:	4a03      	ldr	r2, [pc, #12]	@ (80006d4 <TIM4_IRQHandler+0x24>)
+ 80006c6:	f023 0301 	bic.w	r3, r3, #1
+ 80006ca:	6113      	str	r3, [r2, #16]
+
+		fade_led_program();
+ 80006cc:	f7ff fd7c 	bl	80001c8 <fade_led_program>
+	}
+}
+ 80006d0:	bf00      	nop
+ 80006d2:	bd80      	pop	{r7, pc}
+ 80006d4:	40000800 	.word	0x40000800
+
+080006d8 <gpio_clock_enable>:
+		/// Do nothing
+	}
+}
+
+void gpio_clock_enable(uint8_t port)
+{
+ 80006d8:	b480      	push	{r7}
+ 80006da:	b083      	sub	sp, #12
+ 80006dc:	af00      	add	r7, sp, #0
+ 80006de:	4603      	mov	r3, r0
+ 80006e0:	71fb      	strb	r3, [r7, #7]
+	rcc_ptr->AHB1ENR |= 1<<port;							//// Enabled the clock for GPIO Module
+ 80006e2:	4b08      	ldr	r3, [pc, #32]	@ (8000704 <gpio_clock_enable+0x2c>)
+ 80006e4:	6b1b      	ldr	r3, [r3, #48]	@ 0x30
+ 80006e6:	79fa      	ldrb	r2, [r7, #7]
+ 80006e8:	2101      	movs	r1, #1
+ 80006ea:	fa01 f202 	lsl.w	r2, r1, r2
+ 80006ee:	4611      	mov	r1, r2
+ 80006f0:	4a04      	ldr	r2, [pc, #16]	@ (8000704 <gpio_clock_enable+0x2c>)
+ 80006f2:	430b      	orrs	r3, r1
+ 80006f4:	6313      	str	r3, [r2, #48]	@ 0x30
+}
+ 80006f6:	bf00      	nop
+ 80006f8:	370c      	adds	r7, #12
+ 80006fa:	46bd      	mov	sp, r7
+ 80006fc:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8000700:	4770      	bx	lr
+ 8000702:	bf00      	nop
+ 8000704:	40023800 	.word	0x40023800
+
+08000708 <spi_clock_enable>:
+
+void spi_clock_enable(uint8_t module)
+{
+ 8000708:	b480      	push	{r7}
+ 800070a:	b083      	sub	sp, #12
+ 800070c:	af00      	add	r7, sp, #0
+ 800070e:	4603      	mov	r3, r0
+ 8000710:	71fb      	strb	r3, [r7, #7]
+	switch(module)
+ 8000712:	79fb      	ldrb	r3, [r7, #7]
+ 8000714:	2b02      	cmp	r3, #2
+ 8000716:	d014      	beq.n	8000742 <spi_clock_enable+0x3a>
+ 8000718:	2b02      	cmp	r3, #2
+ 800071a:	dc19      	bgt.n	8000750 <spi_clock_enable+0x48>
+ 800071c:	2b00      	cmp	r3, #0
+ 800071e:	d002      	beq.n	8000726 <spi_clock_enable+0x1e>
+ 8000720:	2b01      	cmp	r3, #1
+ 8000722:	d007      	beq.n	8000734 <spi_clock_enable+0x2c>
+		break;
+	case SPI3:
+		rcc_ptr->APB1ENR |= (1<<15);
+		break;
+	default:
+		break;
+ 8000724:	e014      	b.n	8000750 <spi_clock_enable+0x48>
+		rcc_ptr->APB2ENR |= (1<<12);
+ 8000726:	4b0e      	ldr	r3, [pc, #56]	@ (8000760 <spi_clock_enable+0x58>)
+ 8000728:	6c5b      	ldr	r3, [r3, #68]	@ 0x44
+ 800072a:	4a0d      	ldr	r2, [pc, #52]	@ (8000760 <spi_clock_enable+0x58>)
+ 800072c:	f443 5380 	orr.w	r3, r3, #4096	@ 0x1000
+ 8000730:	6453      	str	r3, [r2, #68]	@ 0x44
+		break;
+ 8000732:	e00e      	b.n	8000752 <spi_clock_enable+0x4a>
+		rcc_ptr->APB1ENR |= (1<<14);
+ 8000734:	4b0a      	ldr	r3, [pc, #40]	@ (8000760 <spi_clock_enable+0x58>)
+ 8000736:	6c1b      	ldr	r3, [r3, #64]	@ 0x40
+ 8000738:	4a09      	ldr	r2, [pc, #36]	@ (8000760 <spi_clock_enable+0x58>)
+ 800073a:	f443 4380 	orr.w	r3, r3, #16384	@ 0x4000
+ 800073e:	6413      	str	r3, [r2, #64]	@ 0x40
+		break;
+ 8000740:	e007      	b.n	8000752 <spi_clock_enable+0x4a>
+		rcc_ptr->APB1ENR |= (1<<15);
+ 8000742:	4b07      	ldr	r3, [pc, #28]	@ (8000760 <spi_clock_enable+0x58>)
+ 8000744:	6c1b      	ldr	r3, [r3, #64]	@ 0x40
+ 8000746:	4a06      	ldr	r2, [pc, #24]	@ (8000760 <spi_clock_enable+0x58>)
+ 8000748:	f443 4300 	orr.w	r3, r3, #32768	@ 0x8000
+ 800074c:	6413      	str	r3, [r2, #64]	@ 0x40
+		break;
+ 800074e:	e000      	b.n	8000752 <spi_clock_enable+0x4a>
+		break;
+ 8000750:	bf00      	nop
+	}
+}
+ 8000752:	bf00      	nop
+ 8000754:	370c      	adds	r7, #12
+ 8000756:	46bd      	mov	sp, r7
+ 8000758:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 800075c:	4770      	bx	lr
+ 800075e:	bf00      	nop
+ 8000760:	40023800 	.word	0x40023800
+
+08000764 <spi_init_config>:
+
+#include <STM32_SPI.h>
+
+
+void spi_init_config(spi_structure* spi_ptr)
+{
+ 8000764:	b480      	push	{r7}
+ 8000766:	b083      	sub	sp, #12
+ 8000768:	af00      	add	r7, sp, #0
+ 800076a:	6078      	str	r0, [r7, #4]
+	/// STEP 1 - We reset the CR1 register in starting ( to avoid previous pending things )
+	spi_ptr->CR1 = 0;
+ 800076c:	687b      	ldr	r3, [r7, #4]
+ 800076e:	2200      	movs	r2, #0
+ 8000770:	601a      	str	r2, [r3, #0]
+	/// STEP 2 - We set the SPI in the board in master mode
+	spi_ptr->CR1 |= (1 << 2);
+ 8000772:	687b      	ldr	r3, [r7, #4]
+ 8000774:	681b      	ldr	r3, [r3, #0]
+ 8000776:	f043 0204 	orr.w	r2, r3, #4
+ 800077a:	687b      	ldr	r3, [r7, #4]
+ 800077c:	601a      	str	r2, [r3, #0]
+	/// STEP 3 - Setting the baud rate needed in starting
+	spi_ptr->CR1 &= ~(0x07 << 3);					/// Clearing the baud rate bits for SPI
+ 800077e:	687b      	ldr	r3, [r7, #4]
+ 8000780:	681b      	ldr	r3, [r3, #0]
+ 8000782:	f023 0238 	bic.w	r2, r3, #56	@ 0x38
+ 8000786:	687b      	ldr	r3, [r7, #4]
+ 8000788:	601a      	str	r2, [r3, #0]
+	spi_ptr->CR1 |= (3 << 3);						/// Setting the baud rate with 011
+ 800078a:	687b      	ldr	r3, [r7, #4]
+ 800078c:	681b      	ldr	r3, [r3, #0]
+ 800078e:	f043 0218 	orr.w	r2, r3, #24
+ 8000792:	687b      	ldr	r3, [r7, #4]
+ 8000794:	601a      	str	r2, [r3, #0]
+	/// STEP 4 - Setting the polarity and phase to 0
+	spi_ptr->CR1 &= ~(0x03 << 0);					/// Clearing the first 2 bits for Polarity and Phase ( No need of setting it to 0 manually )
+ 8000796:	687b      	ldr	r3, [r7, #4]
+ 8000798:	681b      	ldr	r3, [r3, #0]
+ 800079a:	f023 0203 	bic.w	r2, r3, #3
+ 800079e:	687b      	ldr	r3, [r7, #4]
+ 80007a0:	601a      	str	r2, [r3, #0]
+	/// Step 5 - 8 bit data format
+	spi_ptr->CR1 &= ~(0x01 << 11);					/// Clearing the 11th bit , no need of explicitly
+ 80007a2:	687b      	ldr	r3, [r7, #4]
+ 80007a4:	681b      	ldr	r3, [r3, #0]
+ 80007a6:	f423 6200 	bic.w	r2, r3, #2048	@ 0x800
+ 80007aa:	687b      	ldr	r3, [r7, #4]
+ 80007ac:	601a      	str	r2, [r3, #0]
+	/// Step 6 - Explicitly mentioning that NSS pins are manual controlled (SSM and SSI bits to be 1)
+	spi_ptr->CR1 |= (0x03 << 8);
+ 80007ae:	687b      	ldr	r3, [r7, #4]
+ 80007b0:	681b      	ldr	r3, [r3, #0]
+ 80007b2:	f443 7240 	orr.w	r2, r3, #768	@ 0x300
+ 80007b6:	687b      	ldr	r3, [r7, #4]
+ 80007b8:	601a      	str	r2, [r3, #0]
+	/// Step 7 - Turn On SPI (Enable SPI Peripheral)
+	spi_ptr->CR1 |= (0x01 << 6);
+ 80007ba:	687b      	ldr	r3, [r7, #4]
+ 80007bc:	681b      	ldr	r3, [r3, #0]
+ 80007be:	f043 0240 	orr.w	r2, r3, #64	@ 0x40
+ 80007c2:	687b      	ldr	r3, [r7, #4]
+ 80007c4:	601a      	str	r2, [r3, #0]
+
+}
+ 80007c6:	bf00      	nop
+ 80007c8:	370c      	adds	r7, #12
+ 80007ca:	46bd      	mov	sp, r7
+ 80007cc:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 80007d0:	4770      	bx	lr
+
+080007d2 <spi_transfer>:
+
+/// Make sure CS pin is low before calling the function and make CS pin to high after completing the function ( after return )
+uint8_t spi_transfer(spi_structure* spi_ptr , uint8_t data)
+{
+ 80007d2:	b480      	push	{r7}
+ 80007d4:	b085      	sub	sp, #20
+ 80007d6:	af00      	add	r7, sp, #0
+ 80007d8:	6078      	str	r0, [r7, #4]
+ 80007da:	460b      	mov	r3, r1
+ 80007dc:	70fb      	strb	r3, [r7, #3]
+	/// Step 1 - Wait till the transmit buffer become empty
+	while (!(spi_ptr->SR & (1<<1)));
+ 80007de:	bf00      	nop
+ 80007e0:	687b      	ldr	r3, [r7, #4]
+ 80007e2:	689b      	ldr	r3, [r3, #8]
+ 80007e4:	f003 0302 	and.w	r3, r3, #2
+ 80007e8:	2b00      	cmp	r3, #0
+ 80007ea:	d0f9      	beq.n	80007e0 <spi_transfer+0xe>
+	/// Step 2 - Write the data (one byte to the DR)
+	spi_ptr->DR = data;
+ 80007ec:	78fa      	ldrb	r2, [r7, #3]
+ 80007ee:	687b      	ldr	r3, [r7, #4]
+ 80007f0:	60da      	str	r2, [r3, #12]
+	/// Step 3 - Wait till the recieve buffet become non empty
+	while(!(spi_ptr->SR & (1<<0)));
+ 80007f2:	bf00      	nop
+ 80007f4:	687b      	ldr	r3, [r7, #4]
+ 80007f6:	689b      	ldr	r3, [r3, #8]
+ 80007f8:	f003 0301 	and.w	r3, r3, #1
+ 80007fc:	2b00      	cmp	r3, #0
+ 80007fe:	d0f9      	beq.n	80007f4 <spi_transfer+0x22>
+	/// Step 4 - Read the data (One byte from the read buffer)
+	uint8_t received = spi_ptr->DR;
+ 8000800:	687b      	ldr	r3, [r7, #4]
+ 8000802:	68db      	ldr	r3, [r3, #12]
+ 8000804:	73fb      	strb	r3, [r7, #15]
+	/// Step 5 - Wait till the busy flag get over .
+	while(spi_ptr->SR & (1<<7));
+ 8000806:	bf00      	nop
+ 8000808:	687b      	ldr	r3, [r7, #4]
+ 800080a:	689b      	ldr	r3, [r3, #8]
+ 800080c:	f003 0380 	and.w	r3, r3, #128	@ 0x80
+ 8000810:	2b00      	cmp	r3, #0
+ 8000812:	d1f9      	bne.n	8000808 <spi_transfer+0x36>
+	/// Step 6 - Return the function
+	return received;
+ 8000814:	7bfb      	ldrb	r3, [r7, #15]
+}
+ 8000816:	4618      	mov	r0, r3
+ 8000818:	3714      	adds	r7, #20
+ 800081a:	46bd      	mov	sp, r7
+ 800081c:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8000820:	4770      	bx	lr
+	...
+
+08000824 <Reset_Handler>:
+
+  .section .text.Reset_Handler
+  .weak Reset_Handler
+  .type Reset_Handler, %function
+Reset_Handler:
+  ldr   r0, =_estack
+ 8000824:	480d      	ldr	r0, [pc, #52]	@ (800085c <LoopForever+0x2>)
+  mov   sp, r0          /* set stack pointer */
+ 8000826:	4685      	mov	sp, r0
+/* Call the clock system initialization function.*/
+  bl  SystemInit
+ 8000828:	f3af 8000 	nop.w
+
+/* Copy the data segment initializers from flash to SRAM */
+  ldr r0, =_sdata
+ 800082c:	480c      	ldr	r0, [pc, #48]	@ (8000860 <LoopForever+0x6>)
+  ldr r1, =_edata
+ 800082e:	490d      	ldr	r1, [pc, #52]	@ (8000864 <LoopForever+0xa>)
+  ldr r2, =_sidata
+ 8000830:	4a0d      	ldr	r2, [pc, #52]	@ (8000868 <LoopForever+0xe>)
+  movs r3, #0
+ 8000832:	2300      	movs	r3, #0
+  b LoopCopyDataInit
+ 8000834:	e002      	b.n	800083c <LoopCopyDataInit>
+
+08000836 <CopyDataInit>:
+
+CopyDataInit:
+  ldr r4, [r2, r3]
+ 8000836:	58d4      	ldr	r4, [r2, r3]
+  str r4, [r0, r3]
+ 8000838:	50c4      	str	r4, [r0, r3]
+  adds r3, r3, #4
+ 800083a:	3304      	adds	r3, #4
+
+0800083c <LoopCopyDataInit>:
+
+LoopCopyDataInit:
+  adds r4, r0, r3
+ 800083c:	18c4      	adds	r4, r0, r3
+  cmp r4, r1
+ 800083e:	428c      	cmp	r4, r1
+  bcc CopyDataInit
+ 8000840:	d3f9      	bcc.n	8000836 <CopyDataInit>
+
+/* Zero fill the bss segment. */
+  ldr r2, =_sbss
+ 8000842:	4a0a      	ldr	r2, [pc, #40]	@ (800086c <LoopForever+0x12>)
+  ldr r4, =_ebss
+ 8000844:	4c0a      	ldr	r4, [pc, #40]	@ (8000870 <LoopForever+0x16>)
+  movs r3, #0
+ 8000846:	2300      	movs	r3, #0
+  b LoopFillZerobss
+ 8000848:	e001      	b.n	800084e <LoopFillZerobss>
+
+0800084a <FillZerobss>:
+
+FillZerobss:
+  str  r3, [r2]
+ 800084a:	6013      	str	r3, [r2, #0]
+  adds r2, r2, #4
+ 800084c:	3204      	adds	r2, #4
+
+0800084e <LoopFillZerobss>:
+
+LoopFillZerobss:
+  cmp r2, r4
+ 800084e:	42a2      	cmp	r2, r4
+  bcc FillZerobss
+ 8000850:	d3fb      	bcc.n	800084a <FillZerobss>
+
+
+/* Call static constructors */
+  bl __libc_init_array
+ 8000852:	f000 f811 	bl	8000878 <__libc_init_array>
+/* Call the application's entry point.*/
+
+  bl main
+ 8000856:	f7ff fd13 	bl	8000280 <main>
+
+0800085a <LoopForever>:
+
+LoopForever:
+  b LoopForever
+ 800085a:	e7fe      	b.n	800085a <LoopForever>
+  ldr   r0, =_estack
+ 800085c:	20020000 	.word	0x20020000
+  ldr r0, =_sdata
+ 8000860:	20000000 	.word	0x20000000
+  ldr r1, =_edata
+ 8000864:	20000004 	.word	0x20000004
+  ldr r2, =_sidata
+ 8000868:	080008e0 	.word	0x080008e0
+  ldr r2, =_sbss
+ 800086c:	20000004 	.word	0x20000004
+  ldr r4, =_ebss
+ 8000870:	20000024 	.word	0x20000024
+
+08000874 <ADC_IRQHandler>:
+ * @retval : None
+*/
+  .section .text.Default_Handler,"ax",%progbits
+Default_Handler:
+Infinite_Loop:
+  b Infinite_Loop
+ 8000874:	e7fe      	b.n	8000874 <ADC_IRQHandler>
+	...
+
+08000878 <__libc_init_array>:
+ 8000878:	b570      	push	{r4, r5, r6, lr}
+ 800087a:	4d0d      	ldr	r5, [pc, #52]	@ (80008b0 <__libc_init_array+0x38>)
+ 800087c:	4c0d      	ldr	r4, [pc, #52]	@ (80008b4 <__libc_init_array+0x3c>)
+ 800087e:	1b64      	subs	r4, r4, r5
+ 8000880:	10a4      	asrs	r4, r4, #2
+ 8000882:	2600      	movs	r6, #0
+ 8000884:	42a6      	cmp	r6, r4
+ 8000886:	d109      	bne.n	800089c <__libc_init_array+0x24>
+ 8000888:	4d0b      	ldr	r5, [pc, #44]	@ (80008b8 <__libc_init_array+0x40>)
+ 800088a:	4c0c      	ldr	r4, [pc, #48]	@ (80008bc <__libc_init_array+0x44>)
+ 800088c:	f000 f818 	bl	80008c0 <_init>
+ 8000890:	1b64      	subs	r4, r4, r5
+ 8000892:	10a4      	asrs	r4, r4, #2
+ 8000894:	2600      	movs	r6, #0
+ 8000896:	42a6      	cmp	r6, r4
+ 8000898:	d105      	bne.n	80008a6 <__libc_init_array+0x2e>
+ 800089a:	bd70      	pop	{r4, r5, r6, pc}
+ 800089c:	f855 3b04 	ldr.w	r3, [r5], #4
+ 80008a0:	4798      	blx	r3
+ 80008a2:	3601      	adds	r6, #1
+ 80008a4:	e7ee      	b.n	8000884 <__libc_init_array+0xc>
+ 80008a6:	f855 3b04 	ldr.w	r3, [r5], #4
+ 80008aa:	4798      	blx	r3
+ 80008ac:	3601      	adds	r6, #1
+ 80008ae:	e7f2      	b.n	8000896 <__libc_init_array+0x1e>
+ 80008b0:	080008d8 	.word	0x080008d8
+ 80008b4:	080008d8 	.word	0x080008d8
+ 80008b8:	080008d8 	.word	0x080008d8
+ 80008bc:	080008dc 	.word	0x080008dc
+
+080008c0 <_init>:
+ 80008c0:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 80008c2:	bf00      	nop
+ 80008c4:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 80008c6:	bc08      	pop	{r3}
+ 80008c8:	469e      	mov	lr, r3
+ 80008ca:	4770      	bx	lr
+
+080008cc <_fini>:
+ 80008cc:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 80008ce:	bf00      	nop
+ 80008d0:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 80008d2:	bc08      	pop	{r3}
+ 80008d4:	469e      	mov	lr, r3
+ 80008d6:	4770      	bx	lr
